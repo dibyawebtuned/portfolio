@@ -5,24 +5,26 @@ import About from './sections/About'
 import Aboutme from './sections/Aboutme'
 import Marquee from '../../test'
 import Services from './sections/Services'
-
-
 import CardScene from './component/CardScene'
+
+import Footer from '../../test_two'
 
 
 
 const page = () => {
   return (
     <div>
+      <Herosection />
       <About />
       <Marquee />
-      <Services/>
-      {/* <Herosection /> */}
-      {/* <Aboutme /> */}
+      <Services />
       <Testimonials />
 
 
+      {/* <Aboutme /> */}
       {/* <CardScene/> */}
+
+      <Footer />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import MagicCards from "@/app/component/UI/MagicCards";
+import { handleBuildComplete } from "next/dist/build/adapter/build-complete";
 
 const sentence =
     "Where Magic Meets Mind, Revealing What the Eyes Cannot See.";
@@ -75,8 +76,8 @@ const Marquee = () => {
         <>
             <div
                 style={{
-                    height: "50vh", // <- only take 50% of viewport height
-                    position: "relative", // <- relative to allow Canvas inside
+                    height: "50vh",
+                    position: "relative",
                     overflow: "hidden",
                 }}
             >
@@ -84,7 +85,7 @@ const Marquee = () => {
                     style={{
                         width: "100%",
                         height: "100%",
-                        position: "absolute", // <- absolute within parent
+                        position: "absolute",
                         top: 0,
                         left: 0,
                     }}

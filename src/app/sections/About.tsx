@@ -17,12 +17,9 @@ const About = () => {
 
                     <div className='flex-1'>
                         <p className='geist text-end text-[16px] text-[#F5F5F5]'>
-                            Saman Maharjan was born and raised in Kathmandu, Nepal,
-                            where he began learning magic at the age of eleven.
-                            Saman’s unique and artistic style has dazzled audiences
-                            everywhere from small private parties to large theatrical
-                            venues, and he’ll guarantee to keep you on the edge of your
-                            seat.
+                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven.
+                            Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
+                            venues, and he’ll guarantee to keep you on the edge of your seat.
                         </p>
                     </div>
                 </div>
@@ -30,7 +27,7 @@ const About = () => {
                 {/* ================ VIDEO SECTION ================ */}
                 <div className='mt-16 flex justify-center'>
                     <video
-                        src="/videos/showreel.mp4" // replace with your video path
+                        src="/videos/showreel.mp4"
                         controls
                         autoPlay
                         loop
