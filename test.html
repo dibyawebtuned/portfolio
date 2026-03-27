@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>3D Playing Card Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            background: #080808;
+            color: white;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .hero p {
+            font-size: 13px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.35;
+            animation: nudge 2s ease-in-out infinite;
+        }
+
+        @keyframes nudge {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(6px);
+            }
+        }
+
+        /* ── Scroll section ── */
+        .section {
+            height: 300vh;
+            position: relative;
+        }
+
+        /* Sticky stage holds canvas + overlay panels */
+        .stage {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ── Text panels — left 42% of screen ── */
+        .panel-block {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 42%;
+            padding: 0 5% 0 7%;
+            opacity: 0;
+            pointer-events: none;
+            /* transform controlled by JS */
+        }
+
+        .panel-block .label {
+            font-size: 11px;
+            letter-spacing: 0.38em;
+            text-transform: uppercase;
+            color: #c8a84b;
+            margin-bottom: 14px;
+        }
+
+        .panel-block .divider {
+            width: 36px;
+            height: 1px;
+            background: #c8a84b;
+            margin-bottom: 18px;
+        }
+
+        .panel-block h2 {
+            font-size: clamp(24px, 3.2vw, 46px);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            line-height: 1.22;
+            margin-bottom: 18px;
+            color: #f0ede6;
+        }
+
+        .panel-block p {
+            font-size: clamp(13px, 1.3vw, 15px);
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.42);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            max-width: 320px;
+        }
+
+        /* ── End ── */
+        .end {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .end h2 {
+            font-size: clamp(22px, 4vw, 52px);
+            font-weight: 300;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .end p {
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.22;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Ace of Spades</h1>
+        <p>↓ &nbsp; scroll to reveal &nbsp; ↓</p>
+    </div>
+
+    <!-- Scroll section -->
+    <div class="section" id="section">
+        <div class="stage" id="stage">
+
+            <canvas id="canvas"></canvas>
+
+            <!-- Panel 1 -->
+            <div class="panel-block" id="panel1">
+                <div class="label">The Card</div>
+                <div class="divider"></div>
+                <h2>Forged in<br>Dark Ink</h2>
+                <p>Every detail hand-composed — the sharp corners, the weight of the suit, the silence before the
+                    reveal.</p>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="panel-block" id="panel2">
+                <div class="label">The Symbol</div>
+                <div class="divider"></div>
+                <h2>The Spade<br>Never Lies</h2>
+                <p>Oldest of the four suits. A symbol of wisdom, transformation, and the irreversible passage of time.
+                </p>
+            </div>
+
+            <!-- Panel 3 -->
+            <div class="panel-block" id="panel3">
+                <div class="label">The Reveal</div>
+                <div class="divider"></div>
+                <h2>Turn It<br>Over</h2>
+                <p>The back holds the mirror of the front. What you see depends entirely on which side you're standing
+                    on.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- End -->
+    <div class="end">
+        <h2>The Hand is Dealt</h2>
+        <p>play wisely</p>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ── Canvas texture helpers ───────────────────────────────────────────────── */
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.arc(x + w - r, y + r, r, -Math.PI / 2, 0);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.arc(x + w - r, y + h - r, r, 0, Math.PI / 2);
+            ctx.lineTo(x + r, y + h);
+            ctx.arc(x + r, y + h - r, r, Math.PI / 2, Math.PI);
+            ctx.lineTo(x, y + r);
+            ctx.arc(x + r, y + r, r, Math.PI, -Math.PI / 2);
+            ctx.closePath();
+        }
+
+        function drawSpade(ctx, cx, cy, size) {
+            const s = size / 100;
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.scale(s, s);
+            // Head
+            ctx.beginPath();
+            ctx.moveTo(0, -55);
+            ctx.bezierCurveTo(0, -55, 58, -5, 58, 28);
+            ctx.bezierCurveTo(58, 58, 28, 60, 0, 44);
+            ctx.bezierCurveTo(-28, 60, -58, 58, -58, 28);
+            ctx.bezierCurveTo(-58, -5, 0, -55, 0, -55);
+            ctx.fill();
+            // Stem
+            ctx.beginPath();
+            ctx.moveTo(0, 44);
+            ctx.bezierCurveTo(8, 65, 28, 78, 36, 88);
+            ctx.lineTo(-36, 88);
+            ctx.bezierCurveTo(-28, 78, -8, 65, 0, 44);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function makeFront() {
+            const c = document.createElement('canvas');
+            c.width = 512; c.height = 716;
+            const ctx = c.getContext('2d');
+
+            ctx.fillStyle = '#f8f6f0';
+            roundRect(ctx, 0, 0, 512, 716, 32); ctx.fill();
+
+            ctx.strokeStyle = '#ddd8cc'; ctx.lineWidth = 6;
+            roundRect(ctx, 3, 3, 506, 710, 30); ctx.stroke();
+
+            ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 3;
+            roundRect(ctx, 18, 18, 476, 680, 18); ctx.stroke();
+
+            ctx.fillStyle = '#111'; ctx.textAlign = 'center';
+            ctx.font = 'bold 52px Georgia,serif'; ctx.fillText('A', 52, 72);
+            ctx.font = '34px Georgia,serif'; ctx.fillText('♠', 52, 108);
+
+            ctx.save();
+            ctx.translate(512, 716); ctx.rotate(Math.PI);
+            ctx.font = 'bold 52px Georgia,serif'; ctx.fillText('A', 52, 72);
+            ctx.font = '34px Georgia,serif'; ctx.fillText('♠', 52, 108);
+            ctx.restore();
+
+            ctx.fillStyle = '#111';
+            drawSpade(ctx, 256, 330, 160);
+
+            return new THREE.CanvasTexture(c);
+        }
+
+        function makeBack() {
+            const c = document.createElement('canvas');
+            c.width = 512; c.height = 716;
+            const ctx = c.getContext('2d');
+
+            ctx.fillStyle = '#0f1e5e';
+            roundRect(ctx, 0, 0, 512, 716, 32); ctx.fill();
+
+            ctx.strokeStyle = '#1a3080'; ctx.lineWidth = 6;
+            roundRect(ctx, 3, 3, 506, 710, 30); ctx.stroke();
+
+            ctx.strokeStyle = '#c8a84b'; ctx.lineWidth = 3;
+            roundRect(ctx, 18, 18, 476, 680, 18); ctx.stroke();
+
+            const step = 32;
+            ctx.strokeStyle = '#1e3494'; ctx.lineWidth = 1.2;
+            for (let x = -step; x < 540; x += step)
+                for (let y = -step; y < 760; y += step) {
+                    ctx.save();
+                    ctx.translate(x + step / 2, y + step / 2);
+                    ctx.rotate(Math.PI / 4);
+                    ctx.strokeRect(-9, -9, 18, 18);
+                    ctx.restore();
+                }
+
+            ctx.fillStyle = '#c8a84b';
+            ctx.beginPath(); ctx.arc(256, 358, 52, 0, Math.PI * 2); ctx.fill();
+
+            ctx.fillStyle = '#0f1e5e';
+            ctx.font = 'bold 36px Georgia,serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('♠', 256, 358);
+
+            return new THREE.CanvasTexture(c);
+        }
+
+        /* ── Three.js ─────────────────────────────────────────────────────────────── */
+        const canvasEl = document.getElementById('canvas');
+        const W = () => window.innerWidth;
+        const H = () => window.innerHeight;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(42, W() / H(), 0.1, 100);
+        camera.position.set(0, 0, 6);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: true });
+        renderer.setSize(W(), H());
+        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+        const keyL = new THREE.DirectionalLight(0xffd7a8, 2.5);
+        keyL.position.set(4, 5, 6); scene.add(keyL);
+        const fillL = new THREE.DirectionalLight(0xa8c4ff, 1.0);
+        fillL.position.set(-4, -2, 3); scene.add(fillL);
+        const rimL = new THREE.DirectionalLight(0xffffff, 0.6);
+        rimL.position.set(0, 0, -5); scene.add(rimL);
+
+        // Card
+        const geo = new THREE.BoxGeometry(2.5, 3.5, 0.06);
+        const edgeMat = new THREE.MeshStandardMaterial({ color: '#d4cfc8', roughness: 0.5 });
+        const card = new THREE.Mesh(geo, [
+            edgeMat, edgeMat, edgeMat, edgeMat,
+            new THREE.MeshStandardMaterial({ map: makeFront(), roughness: 0.2 }),
+            new THREE.MeshStandardMaterial({ map: makeBack(), roughness: 0.3 }),
+        ]);
+        scene.add(card);
+
+        /* ── Scroll proxy — GSAP writes here, render loop reads ─────────────────── */
+        const state = {
+            cardX: 0,   // world-space X: 0=centre, ~2.6=right
+            cardRotY: 0,   // Y-axis flip driven by scroll
+            floatY: 0,   // gentle vertical bob
+        };
+
+        // Mouse
+        let tMX = 0, tMY = 0, sMX = 0, sMY = 0;
+        window.addEventListener('mousemove', e => {
+            tMX = e.clientX / W() - 0.5;
+            tMY = e.clientY / H() - 0.5;
+        });
+
+        /* ── GSAP scroll animations ─────────────────────────────────────────────── */
+        const section = document.getElementById('section');
+
+        // Phase 1 — card slides to the right (first half of scroll)
+        gsap.to(state, {
+            cardX: 2.6,
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: '50% bottom',
+                scrub: 1.4,
+            },
+        });
+
+        // Phase 2 — card flips (second half of scroll)
+        gsap.to(state, {
+            cardRotY: Math.PI,
+            scrollTrigger: {
+                trigger: section,
+                start: '50% bottom',
+                end: 'bottom bottom',
+                scrub: 1.4,
+            },
+        });
+
+        // Eternal float bob
+        gsap.to(state, {
+            floatY: 0.2,
+            duration: 2.2,
+            yoyo: true,
+            repeat: -1,
+            ease: 'sine.inOut',
+        });
+
+        /* ── Text panel fade/slide ───────────────────────────────────────────────── */
+        const panels = ['panel1', 'panel2', 'panel3'].map(id => document.getElementById(id));
+
+        // [fadeIn-start, full-opacity, fadeOut-end] — expressed as scroll progress 0→1
+        const ranges = [
+            [0.08, 0.20, 0.36],
+            [0.36, 0.50, 0.64],
+            [0.64, 0.76, 0.92],
+        ];
+
+        function calcOpacity(p, range) {
+            const [a, b, c] = range;
+            if (p <= a || p >= c) return 0;
+            if (p <= b) return (p - a) / (b - a);
+            return 1 - (p - b) / (c - b);
+        }
+
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top top',
+            end: 'bottom bottom',
+            onUpdate(self) {
+                panels.forEach((el, i) => {
+                    const op = calcOpacity(self.progress, ranges[i]);
+                    const tx = op < 0.02 ? -20 : 0;
+                    el.style.opacity = op;
+                    el.style.transform = `translateY(-50%) translateX(${tx}px)`;
+                    el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                });
+            },
+        });
+
+        /* ── Render loop ─────────────────────────────────────────────────────────── */
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Smooth mouse
+            sMX += (tMX - sMX) * 0.06;
+            sMY += (tMY - sMY) * 0.06;
+
+            // Card transform — composed from scroll state + mouse tilt
+            card.position.x = state.cardX;
+            card.position.y = state.floatY;
+            card.rotation.y = state.cardRotY + sMX * 0.45;
+            card.rotation.x = -sMY * 0.3;
+
+            // Camera always aims at card centre
+            camera.lookAt(card.position.x, card.position.y, 0);
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        /* ── Resize ──────────────────────────────────────────────────────────────── */
+        window.addEventListener('resize', () => {
+            camera.aspect = W() / H();
+            camera.updateProjectionMatrix();
+            renderer.setSize(W(), H());
+        });
+    </script>
+
+</body>
+
+</html>

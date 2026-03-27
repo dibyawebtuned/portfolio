@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* ---------------------------------------- */
+/* FONT UTILITIES */
+/* ---------------------------------------- */
+
+/* Geist font from Google Fonts */
+.geist {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.geist-thin {
+  font-weight: 100;
+}
+
+.geist-extra-light {
+  font-weight: 200;
+}
+
+.geist-light {
+  font-weight: 300;
+}
+
+.geist-regular {
+  font-weight: 400;
+}
+
+.geist-medium {
+  font-weight: 500;
+}
+
+.geist-semibold {
+  font-weight: 600;
+}
+
+.geist-bold {
+  font-weight: 700;
+}
+
+.geist-extra-bold {
+  font-weight: 800;
+}
+
+.geist-black {
+  font-weight: 900;
+}
+
+/* Big Shoulders font from Google Fonts */
+.big-shoulders {
+  font-family: "Big Shoulders", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.big-shoulders-thin {
+  font-weight: 100;
+}
+
+.big-shoulders-extra-light {
+  font-weight: 200;
+}
+
+.big-shoulders-light {
+  font-weight: 300;
+}
+
+.big-shoulders-regular {
+  font-weight: 400;
+}
+
+.big-shoulders-medium {
+  font-weight: 500;
+}
+
+.big-shoulders-semibold {
+  font-weight: 600;
+}
+
+.big-shoulders-bold {
+  font-weight: 700;
+}
+
+.big-shoulders-extra-bold {
+  font-weight: 800;
+}
+
+.big-shoulders-black {
+  font-weight: 900;
+}
+
+:root {
+  /* --background: #ffffff; */
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.heading {
+  font-size: 87px;
+  font-weight: bold;
+  letter-spacing: 2%;
+}

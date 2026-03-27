@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Card Fan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden
+    }
+
+    body {
+      background: #0a0000
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      opacity: .4;
+      font-size: 12px;
+      font-family: sans-serif;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="hint">Scroll to fan cards</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+
+    /* ─────────────────────────────────────────────────────────────────
+       ✅ YOUR LOCAL IMAGE PATHS
+       Make sure you run a local server from the folder that contains
+       your "assets" folder. Example:
+         npx serve .           (Node)
+         python -m http.server  (Python)
+       Then open: http://localhost:3000  (or whatever port is shown)
+    ───────────────────────────────────────────────────────────────── */
+    const CARDS = [
+      "/assets/img/cards/3.png",
+      "/assets/img/cards/4.png",
+      "/assets/img/cards/4_3.png",
+      "/assets/img/cards/5.png",
+      "/assets/img/cards/5_0.png",
+      "/assets/img/cards/A.png",
+      "/assets/img/cards/A_0.png",
+      "/assets/img/cards/A_2.png",
+      "/assets/img/cards/A_4.png",
+      "/assets/img/cards/Q.png",
+      "/assets/img/cards/Q_0.png",
+    ];
+
+    const NUM = CARDS.length;
+
+    /* ─── CARD BACK ─────────────────────────────────────────────────── */
+    function makeBackTexture() {
+      const W = 512, H = 716;
+      const c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = '#1a0505';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.strokeStyle = '#c8a84b';
+      ctx.lineWidth = 1.5;
+      const step = 36;
+      for (let x = 0; x < W; x += step) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 0; y < H; y += step) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      ctx.globalAlpha = 0.25;
+      for (let i = -H; i < W + H; i += step) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + H, H); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i - H, H); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      ctx.strokeStyle = '#c8a84b';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(22, 22, W - 44, H - 44);
+      ctx.lineWidth = 2;
+      ctx.strokeRect(30, 30, W - 60, H - 60);
+
+      ctx.fillStyle = '#c8a84b';
+      ctx.font = 'bold 120px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('♠', W / 2, H / 2);
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    function makeEdgeTexture() {
+      const c = document.createElement('canvas');
+      c.width = 4; c.height = 4;
+      c.getContext('2d').fillStyle = '#e8e0d0';
+      c.getContext('2d').fillRect(0, 0, 4, 4);
+      return new THREE.CanvasTexture(c);
+    }
+
+    /* ─── THREE SETUP ───────────────────────────────────────────────── */
+    const canvas = document.getElementById('canvas');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0000, 0.035);
+
+    const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(0, 0.5, 9);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    /* ─── LIGHTING ──────────────────────────────────────────────────── */
+    const dirLight = new THREE.DirectionalLight(0xffeedd, 3.5);
+    dirLight.position.set(4, 6, 8);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const fillLight = new THREE.PointLight(0xffd0a0, 1.5, 20);
+    fillLight.position.set(-4, 2, 5);
+    scene.add(fillLight);
+
+    /* ─── TEXTURES ──────────────────────────────────────────────────── */
+    const loader = new THREE.TextureLoader();
+    const backTex = makeBackTexture();
+    const edgeTex = makeEdgeTexture();
+
+    /* ─── PLACEHOLDER while image loads ────────────────────────────── */
+    function makePlaceholder() {
+      const c = document.createElement('canvas');
+      c.width = 2; c.height = 2;
+      c.getContext('2d').fillStyle = '#cccccc';
+      c.getContext('2d').fillRect(0, 0, 2, 2);
+      return new THREE.CanvasTexture(c);
+    }
+
+    /* ─── BUILD CARD MESHES ─────────────────────────────────────────── */
+    const CARD_W = 2.3, CARD_H = 3.22, CARD_D = 0.045;
+    const group = new THREE.Group();
+    scene.add(group);
+    const meshes = [];
+
+    CARDS.forEach((path, i) => {
+      const geo = new THREE.BoxGeometry(CARD_W, CARD_H, CARD_D);
+
+      // Show grey card immediately; swap in real texture once loaded
+      const frontMat = new THREE.MeshPhysicalMaterial({
+        map: makePlaceholder(),
+        roughness: 0.35,
+        metalness: 0.0
+      });
+
+      loader.load(
+        path,
+        (tex) => {
+          // ✅ THE TWO CRITICAL SETTINGS:
+          tex.colorSpace = THREE.SRGBColorSpace; // correct colour
+          tex.flipY = true;                 // BoxGeometry expects flipY=true
+          tex.needsUpdate = true;
+          frontMat.map = tex;
+          frontMat.needsUpdate = true;
+          console.log('✅ Loaded:', path);
+        },
+        undefined,
+        (err) => {
+          console.error('❌ Failed:', path);
+          console.error('👉 Run a local server! e.g.  npx serve .  or  python -m http.server');
+        }
+      );
+
+      const mats = [
+        new THREE.MeshStandardMaterial({ map: edgeTex }), // +X right
+        new THREE.MeshStandardMaterial({ map: edgeTex }), // -X left
+        new THREE.MeshStandardMaterial({ map: edgeTex }), // +Y top
+        new THREE.MeshStandardMaterial({ map: edgeTex }), // -Y bottom
+        frontMat,                                          // +Z FRONT ← your image
+        new THREE.MeshPhysicalMaterial({ map: backTex, roughness: 0.45 }), // -Z back
+      ];
+
+      const mesh = new THREE.Mesh(geo, mats);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.position.set(0, -0.8, i * CARD_D);
+      group.add(mesh);
+      meshes.push(mesh);
+    });
+
+    /* ─── FAN TARGETS ───────────────────────────────────────────────── */
+    const FAN = 75, RADIUS = 7;
+    const targets = CARDS.map((_, i) => {
+      const t = i / (NUM - 1);
+      const angle = THREE.MathUtils.degToRad(-FAN / 2 + t * FAN);
+      return {
+        x: Math.sin(angle) * RADIUS,
+        y: Math.cos(angle) * RADIUS - 6,
+        rot: angle
+      };
+    });
+
+    /* ─── SCROLL + TOUCH ────────────────────────────────────────────── */
+    let progress = 0, targetP = 0;
+    window.addEventListener('wheel', e => {
+      targetP = Math.max(0, Math.min(1, targetP + e.deltaY * 0.0005));
+    });
+    let lastTY = null;
+    window.addEventListener('touchstart', e => { lastTY = e.touches[0].clientY; });
+    window.addEventListener('touchmove', e => {
+      const dy = lastTY - e.touches[0].clientY;
+      lastTY = e.touches[0].clientY;
+      targetP = Math.max(0, Math.min(1, targetP + dy * 0.002));
+    });
+
+    /* ─── ANIMATION LOOP ────────────────────────────────────────────── */
+    function animate() {
+      requestAnimationFrame(animate);
+      progress += (targetP - progress) * 0.05;
+
+      meshes.forEach((m, i) => {
+        const tgt = targets[i];
+        m.position.x += (tgt.x * progress - m.position.x) * 0.08;
+        m.position.y += (tgt.y * progress - m.position.y) * 0.08;
+        m.rotation.z += (tgt.rot * progress - m.rotation.z) * 0.08;
+        m.position.z = i * CARD_D * (1 - progress) + i * 0.01 * progress;
+      });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    /* ─── RESIZE ────────────────────────────────────────────────────── */
+    window.addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+
+  </script>
+</body>
+
+</html>
