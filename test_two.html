@@ -3,49 +3,265 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>3D Card Fan (Image Fixed)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraDeck | Premium 3D Cards</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
-        html,
+        :root {
+            --primary: #c8a84b;
+            --dark: #0a0000;
+            --light: #f4ebd8;
+        }
+
         body {
+            font-family: 'Outfit', sans-serif;
+            background: #050000;
+            color: var(--light);
+            /* Reset to allow normal page scrolling */
+            margin: 0;
+            padding: 0;
+        }
+
+        .cards-showcase-section {
+            position: relative;
             width: 100%;
-            height: 100%;
-            overflow: hidden
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #220b0b 0%, var(--dark) 100%);
         }
 
-        body {
-            background: #0a0000;
-        }
-
-        canvas {
-            position: fixed;
+        .cards-showcase-section canvas {
+            position: absolute;
             inset: 0;
             width: 100% !important;
             height: 100% !important;
+            z-index: 0;
         }
 
-        .hint {
-            position: fixed;
-            bottom: 30px;
+        /* OVERLAY UI */
+        .cards-showcase-section .ui-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .cards-showcase-section .ui-layer>* {
+            pointer-events: auto;
+        }
+
+        /* HEADER */
+        .cards-showcase-section header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4rem;
+            background: linear-gradient(to bottom, rgba(10, 0, 0, 0.8), transparent);
+        }
+
+        .cards-showcase-section .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .cards-showcase-section .logo span {
+            color: var(--primary);
+        }
+
+        .cards-showcase-section .nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .cards-showcase-section .nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .cards-showcase-section .nav a:hover {
+            color: var(--primary);
+        }
+
+        .cards-showcase-section .cta-btn {
+            background: rgba(200, 168, 75, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 1.8rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .cards-showcase-section .cta-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(200, 168, 75, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+        .cards-showcase-section .hero-content {
+            text-align: center;
+            margin-top: -15vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cards-showcase-section .hero-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #c8a84b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            letter-spacing: -2px;
+        }
+
+        .cards-showcase-section .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 500px;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        /* SCROLL INDICATOR */
+        .cards-showcase-section .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 2.5rem;
+            background: linear-gradient(to top, rgba(10, 0, 0, 0.9) 0%, transparent 100%);
+        }
+
+        .cards-showcase-section .mouse {
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .cards-showcase-section .wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
             left: 50%;
             transform: translateX(-50%);
-            color: #fff;
-            opacity: .4;
-            font-size: 12px;
+            animation: scrollWheel 2s infinite ease-in-out;
+        }
+
+        @keyframes scrollWheel {
+            0% {
+                top: 6px;
+                opacity: 1;
+                transform: translateX(-50%) scaleY(1);
+            }
+
+            50% {
+                top: 20px;
+                opacity: 0;
+                transform: translateX(-50%) scaleY(0.5);
+            }
+
+            100% {
+                top: 6px;
+                opacity: 0;
+                transform: translateX(-50%) scaleY(1);
+            }
+        }
+
+        .cards-showcase-section .scroll-text {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.5;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-showcase-section header {
+                padding: 1.5rem 2rem;
+            }
+
+            .cards-showcase-section .nav {
+                display: none;
+            }
+
+            .cards-showcase-section .hero-content {
+                padding: 0 1.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <canvas id="canvas"></canvas>
-    <div class="hint">Scroll to deal cards</div>
+    <section class="cards-showcase-section">
+        <canvas id="canvas"></canvas>
+
+        <div class="ui-layer">
+            <header>
+                <div class="logo">Aura<span>Deck</span></div>
+                <nav class="nav">
+                    <a href="#">Showcase</a>
+                    <a href="#">Collections</a>
+                    <a href="#">Our Story</a>
+                </nav>
+                <button class="cta-btn">Unlock Now</button>
+            </header>
+
+            <div class="hero-content">
+                <h1 class="hero-title">Experience the Magic</h1>
+                <p class="hero-subtitle">An exclusive collection of beautifully crafted 3D playing cards. Scroll to
+                    unfold
+                    the deck and discover the details.</p>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span class="scroll-text">Scroll to deal</span>
+            </div>
+        </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
