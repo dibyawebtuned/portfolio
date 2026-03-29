@@ -1,106 +1,91 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Marquee from "react-fast-marquee"
 
-const items = [
-    "Virtual Shows",
-    "Corporate Events",
-    "Private Events",
-    "Special Events"
+import React from 'react'
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination, Autoplay } from "swiper/modules"
+
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
+const testimonials = [
+  {
+    name: "Subash Acharya",
+    text: "We got tickets from our friends because they didn't want to go. We didn't think it was going to be good but we went to try it out and I have to say it was one of the best magic show watched till date."
+  },
+  {
+    name: "Emily Coff",
+    text: "It was the best money I've spent so far in Kathmandu in magic show, Absolutely hilarious! And he is such a nice person! Will definitely go see him again. Thank you for the amazing involvement."
+  },
+  {
+    name: "Shristi Miya",
+    text: "Great time at the show. Saman thank you for making my time with my friend, Magic was mind blowing, You all were great. Keep Loving Magic and keep rising."
+  }
 ]
 
-const Footer = () => {
-    const [activeIndex, setActiveIndex] = useState(0)
+const Testimonials = () => {
+  return (
+    <div className="relative w-full bg-black overflow-hidden font-sans text-white">
+      {/* Bottom-left radial gradient glow */}
+      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at bottom left, rgba(241, 51, 51, 0.6) 0%, rgba(7,7,7,0) 50%)"
+        }}
+      />
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % items.length)
-        }, 1500)
+      {/* Top radial glow (optional for extra depth) */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at top right, rgba(241, 51, 51, 0.2) 0%, rgba(7,7,7,0) 60%)"
+        }}
+      />
 
-        return () => clearInterval(interval)
-    }, [])
+      <div className='relative max-w-[1440px] mx-auto px-[80px] py-[100px] flex flex-col gap-[50px] z-10'>
+        {/* Header */}
+        <div className='flex flex-col items-center'>
+          <h1 className='text-[87px] text-[#F0EBE6] big-shoulders big-shoulders-bold tracking-[2%]'>Testimonials</h1>
+          <p className='max-w-2xl mx-auto text-center text-[16px]'>
+            Audience and Client Testimonials That Showcase Real Experiences and the Value We Bring to Every Event
+          </p>
+        </div>
 
-    return (
-        <footer className='w-full bg-[#070707] text-white'>
-            <div className='max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-20'>
-                <div className='py-12 md:py-20 flex flex-col gap-12 md:gap-16'>
-                    {/* ================= TOP SECTION ================= */}
-                    <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-0'>
-                        {/* MAIL */}
-                        <div className='flex-1 flex flex-col gap-2'>
-                            <span className='uppercase text-[#D3D3D3] text-sm md:text-base geist geist-regular'>
-                                Reach Out Anytime
-                            </span>
-
-                            <Link href="mailto:bookings@samanmaharjan.com.np" className='geist text-[#D3D3D3] text-2xl sm:text-3xl md:text-5xl lg:text-[57px] font-medium break-all hover:text-[#F13333] transition-colors duration-300'>
-                                bookings@samanmaharjan.com.np
-                            </Link>
-                        </div>
-
-                        {/* LINKS */}
-                        <div className='flex-1 flex justify-between lg:justify-end gap-10 sm:gap-[150px]'>
-                            <ul className='flex flex-col gap-2 geist text-[16px] sm:text-[18px] text-[#D3D3D3]'>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>Instagram</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>YouTube</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>TikTok</Link></li>
-                            </ul>
-
-                            <ul className='flex flex-col gap-2 geist text-[16px] sm:text-[18px] text-[#D3D3D3]'>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>Contact</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>Privacy Policy</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300'>Terms of Use</Link></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* ================= MARQUEE + LIST ================= */}
-                    <div className='flex flex-col gap-12 md:gap-16'>
-                        <div className='grid grid-cols-1 sm:grid-cols-12 items-center gap-6'>
-
-                            {/* MARQUEE */}
-                            <div className='sm:col-span-7 overflow-hidden'>
-                                <Marquee speed={40} gradient={false} className="!overflow-hidden">
-                                    {["SAMAN MAHARJAN", "MAGICIAN", "MENTALIST"].map((text, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="big-shoulders mx-6 text-4xl sm:text-6xl md:text-7xl lg:text-[107px] font-bold text-[#F13333] whitespace-nowrap"
-                                        >
-                                            {text}
-                                        </span>
-                                    ))}
-                                </Marquee>
-                            </div>
-
-                            {/* BLINKING LIST */}
-                            <div className='sm:col-span-5 flex md:justify-end'>
-                                <ul className='flex flex-col gap-2 text-left md:text-right text-sm sm:text-base md:text-lg'>
-                                    {items.map((item, index) => (
-                                        <li
-                                            key={index}
-                                            className={`geist transition-all duration-500 ${index === activeIndex
-                                                ? "opacity-100 translate-x-0 font-medium"
-                                                : "opacity-30 translate-x-2 font-medium"
-                                                }`}
-                                        >
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* ================= BOTTOM ================= */}
-                        <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs sm:text-[16px] opacity-70 geist'>
-                            <span>© {new Date().getFullYear()} SAMAN MAHARJAN. ALL RIGHTS RESERVED.</span>
-                            <span>KEEP LOVING MAGIC</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </footer>
-    )
+        {/* Carousel */}
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {testimonials.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="rounded-2xl p-6 h-full backdrop-blur-md hover:opacity-90 transition"
+                style={{
+                  background: "linear-gradient(to bottom, #F13333 0%, #070707 100%)",
+                  boxShadow: "0 10px 30px rgba(241, 51, 51, 0.2)"
+                }}
+              >
+                <p className="text-sm md:text-base opacity-80 mb-6">
+                  “{item.text}”
+                </p>
+                <h3 className="font-semibold text-lg">{item.name}</h3>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
+  )
 }
 
-export default Footer
+export default Testimonials

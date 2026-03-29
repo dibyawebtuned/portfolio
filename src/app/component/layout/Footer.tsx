@@ -33,7 +33,7 @@ const Footer = () => {
                                 Reach Out Anytime
                             </span>
 
-                            <Link href="" className='geist text-[#D3D3D3] text-2xl sm:text-3xl md:text-5xl lg:text-[57px] font-medium break-all'>
+                            <Link href="" className='geist text-[#D3D3D3] text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-medium break-all'>
                                 bookings@samanmaharjan.com.np
                             </Link>
                         </div>

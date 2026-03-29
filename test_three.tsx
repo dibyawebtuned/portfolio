@@ -10,9 +10,9 @@ const Nav = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="w-full">
+        <header className="w-full fixed top-0 left-0 z-50">
             {/* Navbar Container */}
-            <div className='max-w-[1440px] mx-auto px-[80px] flex justify-between items-center py-[10px]'>
+                        <div className='max-w-[1440px] mx-auto px-[80px] flex justify-between items-center py-[10px]'>
                 {/* Logo */}
                 <div>
                     <Image src={Logo_Image} alt="Logo" className="w-20 h-auto" />
