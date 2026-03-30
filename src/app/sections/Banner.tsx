@@ -23,7 +23,7 @@ const Banner = () => {
                         Close-up tricks, mentalism, and unforgettable moments await.
                     </p>
                 </div>
-                ,
+
                 {/* =========== BUTTONS =========== */}
                 <div className='flex items-center gap-[20px]'>
                     <button className="mt-8 px-8 py-4 bg-gradient-to-r from-[#2b0000] via-[#F13333] to-[#ff4c4c] rounded-lg text-white font-semibold shadow-lg">

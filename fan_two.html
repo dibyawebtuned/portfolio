@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Fan with Tarot Text</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #0d0500;
+            font-family: 'Georgia', serif;
+        }
+
+        #stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 900px;
+        }
+
+        #fan-root {
+            position: relative;
+            width: 1000px; /* expand to cover fan width */
+            height: 400px;
+        }
+
+        /* BIGGER CARDS */
+        .card-wrap {
+            position: absolute;
+            width: 250px;
+            height: 350px;
+            bottom: 0;
+            left: 0;
+            transform-origin: center bottom;
+            cursor: pointer;
+            opacity: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            background: #111;
+        }
+
+        .card-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            filter: contrast(1.05) saturate(1.05);
+        }
+
+        .card-wrap:hover {
+            transform: scale(1.08) !important;
+            z-index: 100;
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 10px;
+            letter-spacing: 0.4em;
+            animation: hint-bob 2s infinite;
+        }
+
+        @keyframes hint-bob {
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        /* Tarot Text Panel */
+        #tarot-text {
+            position: fixed;
+            top: 50%;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            max-width: 300px;
+        }
+
+        #tarot-text.visible {
+            opacity: 1;
+        }
+
+        #tarot-text h2 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        #tarot-text p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="stage">
+        <div id="fan-root"></div>
+    </div>
+
+    <div class="hint">SCROLL ↓</div>
+
+    <div id="tarot-text">
+        <h2>The Journey Ahead</h2>
+        <p>
+            The cards reveal hidden truths. Courage and wisdom guide you. Trust your instincts, embrace change, and let
+            your inner light illuminate the path ahead. Challenges may arise, but clarity and insight will lead you to
+            fulfillment.
+        </p>
+    </div>
+
+    <script>
+        /* IMAGE DATA */
+        const CARDS = [
+            { img: 'https://picsum.photos/300/400?1' },
+            { img: 'https://picsum.photos/300/400?2' },
+            { img: 'https://picsum.photos/300/400?3' },
+            { img: 'https://picsum.photos/300/400?4' },
+            { img: 'https://picsum.photos/300/400?5' },
+            { img: 'https://picsum.photos/300/400?6' },
+            { img: 'https://picsum.photos/300/400?7' },
+            { img: 'https://picsum.photos/300/400?8' },
+            { img: 'https://picsum.photos/300/400?9' },
+            { img: 'https://picsum.photos/300/400?10' },
+        ];
+
+        const root = document.getElementById('fan-root');
+        const wraps = [];
+        const N = CARDS.length;
+        const tarotText = document.getElementById('tarot-text');
+
+        /* BUILD CARDS */
+        CARDS.forEach((cd) => {
+            const wrap = document.createElement('div');
+            wrap.className = 'card-wrap';
+
+            const inner = document.createElement('div');
+            inner.className = 'card-inner';
+            inner.innerHTML = `<img src="${cd.img}" />`;
+
+            wrap.appendChild(inner);
+            root.appendChild(wrap);
+            wraps.push(wrap);
+        });
+
+        /* FAN SETUP */
+        const FAN_DEG = 80;
+        const fanAngles = CARDS.map((_, i) =>
+            -FAN_DEG / 2 + (i / (N - 1)) * FAN_DEG
+        );
+
+        let scrollT = 0, scrollC = 0;
+
+        window.addEventListener('wheel', e => {
+            scrollT = Math.min(1, Math.max(0, scrollT + e.deltaY / 1400));
+        });
+
+        function ease(t) {
+            return t < 0.5
+                ? 4 * t * t * t
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        let curAngle = new Array(N).fill(0);
+        let curY = new Array(N).fill(0);
+
+        function tick() {
+            requestAnimationFrame(tick);
+
+            scrollC += (scrollT - scrollC) * 0.06;
+
+            const phase1 = Math.min(scrollC / 0.4, 1);
+            const phase2 = Math.max((scrollC - 0.4) / 0.6, 0);
+
+            wraps.forEach((wrap, i) => {
+                const isCenter = i === Math.floor(N / 2);
+                const moveX = phase1 * 440;
+
+                const prog = ease(phase2);
+                const angle = fanAngles[i] * prog;
+                curAngle[i] += (angle - curAngle[i]) * 0.08;
+
+                const arc = -50 * Math.sin(prog * Math.PI);
+                curY[i] += (arc - curY[i]) * 0.08;
+
+                wrap.style.transform =
+                    `translateX(${moveX}px)
+                     rotateZ(${curAngle[i]}deg)
+                     translateY(${curY[i]}px)`;
+
+                wrap.style.opacity = phase1 < 1 ? (isCenter ? 1 : 0) : Math.min(1, phase2 * 1.2);
+            });
+
+            /* Show tarot text when fully fanned and position it left of last card */
+            if (scrollC >= 1) {
+                tarotText.classList.add('visible');
+
+                // Use the rightmost card to position text
+                const lastCard = wraps[wraps.length - 1].getBoundingClientRect();
+                tarotText.style.top = `${window.innerHeight / 2 - tarotText.offsetHeight / 2}px`;
+                tarotText.style.left = `${lastCard.left - tarotText.offsetWidth - 20}px`;
+            } else {
+                tarotText.classList.remove('visible');
+            }
+        }
+
+        tick();
+    </script>
+
+</body>
+
+</html>
