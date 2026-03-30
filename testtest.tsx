@@ -117,12 +117,10 @@ const Testimonials = () => {
                 >
                     {testimonials.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <div
-                                className="rounded-2xl p-5 sm:p-6 h-full backdrop-blur-md flex flex-col justify-between"
+                            <div className="rounded-2xl p-5 sm:p-6 h-full backdrop-blur-md flex flex-col justify-between"
                                 style={{
                                     background: "linear-gradient(to bottom, #F13333 0%, #070707 100%)",
-                                }}
-                            >
+                                }}>
                                 <div>
                                     <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#F0EBE6] mb-3 opacity-70" />
 

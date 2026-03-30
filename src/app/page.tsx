@@ -7,9 +7,9 @@ import Aboutme from './sections/Aboutme'
 import Marquee from '../../test'
 import Services from './sections/Services'
 import CardScene from './component/CardScene'
+import FAQAccordion from './sections/Faq'
 
 // import Footer from '../../test_two'
-
 
 
 const page = () => {
@@ -21,11 +21,11 @@ const page = () => {
       <Marquee />
       <Services />
       <Testimonials />
-
+      <FAQAccordion/>
+      <LogoMarquee />
 
       {/* <Aboutme /> */}
       {/* <CardScene/> */}
-
       {/* <Footer /> */}
     </div>
   )
