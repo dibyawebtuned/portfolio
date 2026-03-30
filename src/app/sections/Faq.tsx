@@ -63,6 +63,7 @@ const Faq = () => {
                 <div className='flex flex-col gap-[20px]'>
                     {faqData.map((item, index) => (
                         <div key={index} className="rounded-lg overflow-hidden">
+
                             <button className="w-full text-left bg-gradient-to-r from-black via-[#2b0000] to-[#F13333] text-white px-6 py-4 flex justify-between items-center focus:outline-none hover:opacity-90 transition shadow-[0_0_20px_rgba(122,0,0,0.35)]" onClick={() => toggle(index)}>
                                 <span>{item.question}</span>
                                 <span className="text-xl">

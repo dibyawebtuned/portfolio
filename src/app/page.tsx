@@ -8,6 +8,7 @@ import Marquee from '../../test'
 import Services from './sections/Services'
 import CardScene from './component/CardScene'
 import FAQAccordion from './sections/Faq'
+import Banner from './sections/Banner'
 
 // import Footer from '../../test_two'
 
@@ -21,7 +22,8 @@ const page = () => {
       <Marquee />
       <Services />
       <Testimonials />
-      <FAQAccordion/>
+      <FAQAccordion />
+      <Banner />
       <LogoMarquee />
 
       {/* <Aboutme /> */}
