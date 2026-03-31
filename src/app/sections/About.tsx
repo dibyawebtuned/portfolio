@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const About = () => {
     return (
@@ -26,8 +27,8 @@ const About = () => {
 
                 {/* ================ VIDEO SECTION ================ */}
                 <div className='mt-16 flex justify-center'>
-                    <video
-                        src="/videos/showreel.mp4"
+                    {/* <video
+                        src="/public/assets/img/video.avif"
                         controls
                         autoPlay
                         loop
@@ -35,7 +36,15 @@ const About = () => {
                         className="w-full h-[480px] rounded-xl shadow-lg"
                     >
                         Your browser does not support the video tag.
-                    </video>
+                    </video> */}
+
+                    <Image
+                        src="/assets/img/video.avif"
+                        alt="Banner"
+                        width={1200}
+                        height={480}
+                        className="w-full h-[480px] object-cover rounded-xl shadow-lg"
+                    />
 
                     {/* Alternatively, for YouTube embed: */}
                     {/*

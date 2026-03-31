@@ -22,12 +22,12 @@ const page = () => {
       <Marquee />
       <Services />
       <Testimonials />
-      <FAQAccordion />
       <Banner />
-      <LogoMarquee />
+      <CardScene/>
+      <FAQAccordion />
+      {/* <LogoMarquee /> */}
 
       {/* <Aboutme /> */}
-      {/* <CardScene/> */}
       {/* <Footer /> */}
     </div>
   )
