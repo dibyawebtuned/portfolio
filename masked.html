@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SplitText Animation</title>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- ⚠️ SplitText (you need to host this yourself or have club access) -->
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+
+    <style>
+        @font-face {
+            font-display: block;
+            font-family: Mori;
+            font-style: normal;
+            font-weight: 900;
+            src: url(https://assets.codepen.io/16327/PPMori-SemiBold.woff) format("woff");
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: "Mori";
+            background: radial-gradient(129% 99% at 112% 85%, rgb(223, 220, 255) 20%, rgb(166, 158, 255) 90%);
+        }
+
+        .split {
+            opacity: 0;
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .line {
+            overflow: hidden;
+            display: block;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            border-radius: 99px;
+            border: 3px solid black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="split">
+        The text in this paragraph is split by words and lines and animated beautifully.
+    </h1>
+
+    <button>Replay Slowly</button>
+
+    <script>
+        gsap.registerPlugin(SplitText);
+
+        document.fonts.ready.then(() => {
+            gsap.set(".split", { opacity: 1 });
+
+            let splitInstance;
+
+            splitInstance = new SplitText(".split", {
+                type: "lines,words",
+                linesClass: "line"
+            });
+
+            let animation = gsap.from(splitInstance.lines, {
+                duration: 1.2,        // ⬅️ slower (was 0.6)
+                yPercent: 120,        // ⬅️ slightly more dramatic movement
+                opacity: 0,
+                stagger: 0.25,        // ⬅️ slower stagger (was 0.1)
+                ease: "power3.out"    // ⬅️ smoother than expo
+            });
+
+            document.querySelector("button").addEventListener("click", () => {
+                animation.timeScale(0.3).restart(); // ⬅️ even slower replay
+            });
+        });
+    </script>
+
+</body>
+
+</html>

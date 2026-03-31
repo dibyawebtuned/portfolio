@@ -88,6 +88,23 @@ export default function BentoGallery() {
 
   return (
     <>
+      <style>{`
+        .gallery--bento {
+          display: grid;
+          gap: 1vh;
+          grid-template-columns: repeat(3, 32.5vw);
+          grid-template-rows: repeat(4, 23vh);
+          justify-content: center;
+          align-content: center;
+        }
+
+        .gallery--final.gallery--bento {
+          grid-template-columns: repeat(3, 100vw);
+          grid-template-rows: repeat(4, 49.5vh);
+          gap: 1vh;
+        }
+      `}</style>
+
       {/* ── Gallery section ── */}
       <div
         ref={wrapRef}

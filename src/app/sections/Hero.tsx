@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Image_hero from "../../../public/assets/img/One.png"
 import Image_card from "../../../public/assets/img/cards.png"
@@ -14,6 +14,62 @@ const items = [
 ]
 
 export default function MagicianPortfolio() {
+
+    const textRef = useRef<HTMLDivElement | null>(null);
+    const animationRef = useRef<any>(null);
+    const splitRef = useRef<any>(null);
+
+    useEffect(() => {
+        const init = async () => {
+            const gsapModule = await import("gsap");
+            const gsap = gsapModule.default;
+
+            // Dynamic imports for plugins
+            const SplitTextModule = await import("gsap/SplitText");
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+
+            const SplitText = SplitTextModule.default;
+            const ScrollTrigger = ScrollTriggerModule.default;
+
+            if (!textRef.current || !SplitText || !ScrollTrigger) return;
+
+            gsap.registerPlugin(SplitText, ScrollTrigger);
+
+            document.fonts.ready.then(() => {
+                // cleanup previous if exists
+                splitRef.current && splitRef.current.revert();
+                animationRef.current && animationRef.current.kill();
+
+                // split text into characters
+                splitRef.current = new SplitText(textRef.current, {
+                    type: "chars",
+                });
+
+                // animate characters when section is in viewport
+                animationRef.current = gsap.from(splitRef.current.chars, {
+                    x: 150,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power4.out",
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: textRef.current,
+                        start: "top 80%", // when top of element hits 80% of viewport
+                        toggleActions: "play none none none",
+                    },
+                });
+            });
+        };
+
+        init();
+    }, []);
+
+    const handleReplay = () => {
+        if (animationRef.current) {
+            animationRef.current.restart();
+        }
+    };
+
     const [activeIndex, setActiveIndex] = useState(0)
 
     useEffect(() => {
@@ -22,6 +78,8 @@ export default function MagicianPortfolio() {
         }, 1500)
         return () => clearInterval(interval)
     }, [])
+
+
 
     return (
         <div className="relative w-full min-h-screen bg-black text-white overflow-hidden">
@@ -51,7 +109,9 @@ export default function MagicianPortfolio() {
                     <div className="absolute top-16 z-20">
                         {/* TOP */}
                         <div className="">
-                            <p className="text-sm sm:text-base text-[#F5F5F5] mb-2 max-w-[350px] sm:max-w-[400px]">
+                            <p
+                                ref={textRef}
+                                className="text-sm sm:text-base text-[#F5F5F5] mb-2 max-w-[350px] sm:max-w-[400px]">
                                 I do believe that <br />
                                 <span className="text-[#B9B9B9]">
                                     magic is a powerful communication <br />

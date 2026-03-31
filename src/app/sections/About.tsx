@@ -1,7 +1,58 @@
-import React from 'react'
+"use client";
+import { useEffect, useRef } from "react";
 import Image from 'next/image'
 
 const About = () => {
+    const textRef = useRef<HTMLHeadingElement | null>(null);
+    const animationRef = useRef<any>(null);
+
+    useEffect(() => {
+        const loadGSAP = async () => {
+            const gsapModule = await import("gsap");
+            const gsap = gsapModule.default;
+
+            // @ts-ignore (SplitText is external)
+            const SplitText = (await import("gsap/SplitText")).default || (window as any).SplitText;
+
+            // @ts-ignore (ScrollTrigger is external)
+            const ScrollTriggerModule = (await import("gsap/ScrollTrigger")).default || (window as any).ScrollTrigger;
+
+            if (!textRef.current || !SplitText || !ScrollTriggerModule) return;
+
+            gsap.registerPlugin(SplitText, ScrollTriggerModule);
+
+            document.fonts.ready.then(() => {
+                gsap.set(textRef.current, { opacity: 1 });
+
+                const splitInstance = new SplitText(textRef.current, {
+                    type: "lines,words",
+                    linesClass: "line",
+                });
+
+                animationRef.current = gsap.from(splitInstance.lines, {
+                    duration: 1.2,
+                    yPercent: 120,
+                    opacity: 0,
+                    stagger: 0.25,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: textRef.current,
+                        start: "top 80%", // Trigger when top of element hits 80% of viewport height
+                        toggleActions: "play none none none", // Play once
+                    },
+                });
+            });
+        };
+
+        loadGSAP();
+    }, []);
+
+    const handleReplay = () => {
+        if (animationRef.current) {
+            animationRef.current.timeScale(0.3).restart();
+        }
+    };
+
     return (
         <section className="relative w-full bg-black overflow-hidden font-sans text-white">
             {/* Background Gradient Glow */}
@@ -11,13 +62,16 @@ const About = () => {
             <div className='relative max-w-[1440px] mx-auto px-[80px] py-[100px]'>
                 <div className='flex flex-col md:flex-row gap-10'>
                     <div className='flex-1'>
-                        <h1 className={`heading text-5xl font-bold mb-6 big-shoulders text-[#F0EBE6]`}>
+                        <h1
+                            className={`heading text-5xl font-bold mb-6 big-shoulders text-[#F0EBE6]`}>
                             About
                         </h1>
                     </div>
 
                     <div className='flex-1'>
-                        <p className='geist text-end text-[16px] text-[#F5F5F5]'>
+                        <p
+                            ref={textRef}
+                            className='geist text-end text-[16px] text-[#F5F5F5]'>
                             Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven.
                             Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
                             venues, and he’ll guarantee to keep you on the edge of your seat.

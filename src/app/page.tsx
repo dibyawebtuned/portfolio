@@ -9,7 +9,10 @@ import Services from './sections/Services'
 import CardScene from './component/CardScene'
 import FAQAccordion from './sections/Faq'
 import Banner from './sections/Banner'
-import ScrubbedBentoGallery from '../../testgallery'
+import BentoGallery from './sections/Gallery'
+import SplitText from '../../marked'
+
+import CharacterSplit from '../../characters'
 
 // import Footer from '../../test_two'
 
@@ -24,13 +27,16 @@ const page = () => {
       <CardScene />
       <Services />
       <Testimonials />
+      <BentoGallery />
       <FAQAccordion />
       <Banner />
+      {/* <SplitText /> */}
       {/* <LogoMarquee /> */}
 
       {/* <Aboutme /> */}
       {/* <Footer /> */}
-      <ScrubbedBentoGallery/>
+      <CharacterSplit/>
+
     </div>
   )
 }
