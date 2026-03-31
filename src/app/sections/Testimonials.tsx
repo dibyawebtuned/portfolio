@@ -68,10 +68,21 @@ const Testimonials = () => {
                 }}
             />
 
-            <div className='relative max-w-[1440px] mx-auto px-[80px] py-[100px] flex flex-col gap-[50px] z-10'>
+            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[100px] flex flex-col gap-[50px] z-10'>
                 {/* ========== HEADER ========== */}
                 <div className="flex flex-col items-center text-center px-4">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[87px] text-[#F0EBE6] big-shoulders big-shoulders-bold tracking-wide">
+                    <h1 className="
+                            big-shoulders
+                            text-[#F0EBE6]
+                            font-bold
+                            mb-4 sm:mb-5 md:mb-6
+                            leading-tight
+                            tracking-[0.02em]
+
+                            text-[48px]
+                            lg:text-[64px]
+                            xl:text-[87px]
+                            ">
                         Testimonials
                     </h1>
 

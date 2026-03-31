@@ -16,6 +16,8 @@ import CharacterSplit from '../../characters'
 
 // import Footer from '../../test_two'
 
+import HoverFollowImages from '../../cursor'
+
 
 const page = () => {
   return (
@@ -35,7 +37,9 @@ const page = () => {
 
       {/* <Aboutme /> */}
       {/* <Footer /> */}
-      <CharacterSplit />
+      {/* <CharacterSplit /> */}
+
+      {/* <HoverFollowImages/> */}
 
     </div>
   )

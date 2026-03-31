@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Image Hover Follow</title>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            border-bottom: 1px solid #ddd;
+            padding: 2rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Wrapper for multiple images */
+        .swipeimage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            gap: 12px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%);
+        }
+
+        .swipeimage img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+        <li class="container">
+            <div class="swipeimage">
+                <img src="https://assets.codepen.io/16327/portrait-image-8.jpg" />
+                <img src="https://assets.codepen.io/16327/portrait-image-3.jpg" />
+                <img src="https://assets.codepen.io/16327/portrait-image-1.jpg" />
+            </div>
+            <h3>Hover me for 3 images</h3>
+        </li>
+
+        <li class="container">
+            <div class="swipeimage">
+                <img src="https://assets.codepen.io/16327/portrait-image-14.jpg" />
+                <img src="https://assets.codepen.io/16327/portrait-image-6.jpg" />
+                <img src="https://assets.codepen.io/16327/portrait-image-3.jpg" />
+            </div>
+            <h3>Another hover container</h3>
+        </li>
+    </ul>
+
+    <script>
+        gsap.set(".swipeimage", { xPercent: -50, yPercent: -50 });
+
+        // Loop over each container
+        gsap.utils.toArray(".container").forEach((el) => {
+            const wrapper = el.querySelector(".swipeimage");
+
+            // Create smooth quickTo for x and y
+            const setX = gsap.quickTo(wrapper, "x", { duration: 0.4, ease: "power3" });
+            const setY = gsap.quickTo(wrapper, "y", { duration: 0.4, ease: "power3" });
+
+            const move = (e) => {
+                setX(e.clientX);
+                setY(e.clientY);
+            };
+
+            const show = () => {
+                document.addEventListener("mousemove", move);
+                gsap.to(wrapper, { autoAlpha: 1, visibility: "visible", duration: 0.25 });
+            };
+
+            const hide = () => {
+                document.removeEventListener("mousemove", move);
+                gsap.to(wrapper, { autoAlpha: 0, visibility: "hidden", duration: 0.2 });
+            };
+
+            el.addEventListener("mouseenter", show);
+            el.addEventListener("mouseleave", hide);
+        });
+    </script>
+
+</body>
+
+</html>

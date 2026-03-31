@@ -59,19 +59,51 @@ const About = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" />
 
             {/* CONTENT CONTAINER */}
-            <div className='relative max-w-[1440px] mx-auto px-[80px] py-[100px]'>
+            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]'>
                 <div className='flex flex-col md:flex-row gap-10'>
-                    <div className='flex-1'>
+                    <div className='sm:flex-1'>
                         <h1
-                            className={`heading text-5xl font-bold mb-6 big-shoulders text-[#F0EBE6]`}>
+                            className="
+                            big-shoulders
+                            text-[#F0EBE6]
+                            font-bold
+                            mb-4 sm:mb-5 md:mb-6
+                            leading-tight
+                            tracking-[0.02em]
+
+                            text-[48px]
+                            lg:text-[64px]
+                            xl:text-[87px]
+                            "
+                        >
                             About
                         </h1>
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='sm:flex-1'>
                         <p
                             ref={textRef}
-                            className='geist text-end text-[16px] text-[#F5F5F5]'>
+                            className="
+                            geist
+                            text-justify
+                            
+                            sm:text-end
+                            text-[14px]
+                            sm:text-[15px]
+                            md:text-[16px]
+                            lg:text-[18px]
+                            xl:text-[20px]
+                            text-[#F5F5F5]
+                            max-w-full
+                            sm:max-w-[400px]
+                            md:max-w-[500px]
+                            lg:max-w-[600px]
+                            leading-relaxed
+                            sm:leading-relaxed
+                            md:leading-relaxed
+                            lg:leading-relaxed
+                            "
+                        >
                             Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven.
                             Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
                             venues, and he’ll guarantee to keep you on the edge of your seat.
