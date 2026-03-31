@@ -1,18 +1,35 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image, { StaticImageData } from "next/image";
 
-const CARDS = [
-  { img: "https://picsum.photos/300/400?1" },
-  { img: "https://picsum.photos/300/400?2" },
-  { img: "https://picsum.photos/300/400?3" },
-  { img: "https://picsum.photos/300/400?4" },
-  { img: "https://picsum.photos/300/400?5" },
-  { img: "https://picsum.photos/300/400?6" },
-  { img: "https://picsum.photos/300/400?7" },
-  { img: "https://picsum.photos/300/400?8" },
-  { img: "https://picsum.photos/300/400?9" },
-  { img: "https://picsum.photos/300/400?10" },
+import Image1 from "../../../public/assets/img/cards/black_3.png";
+import Image2 from "../../../public/assets/img/cards/4.png";
+import Image3 from "../../../public/assets/img/cards/4_3.png";
+import Image4 from "../../../public/assets/img/cards/5.png";
+import Image5 from "../../../public/assets/img/cards/5_0.png";
+import Image6 from "../../../public/assets/img/cards/A.png";
+import Image7 from "../../../public/assets/img/cards/A_0.png";
+import Image8 from "../../../public/assets/img/cards/A_2.png";
+import Image9 from "../../../public/assets/img/cards/A_4.png";
+import Image0 from "../../../public/assets/img/cards/Q.png";
+import Image01 from "../../../public/assets/img/cards/Q_0.png";
+
+type CardType = {
+  img: string | StaticImageData;
+};
+
+const CARDS: CardType[] = [
+  { img: Image1 },
+  { img: Image2 },
+  { img: Image3 },
+  { img: Image4 },
+  { img: Image5 },
+  { img: Image6 },
+  { img: Image7 },
+  { img: Image8 },
+  { img: Image9 },
+  { img: Image0 },
 ];
 
 const FAN_DEG = 80;
@@ -32,6 +49,7 @@ export default function CardFanSection() {
   const outerRef = useRef<HTMLDivElement>(null);
   const wrapsRef = useRef<HTMLDivElement[]>([]);
   const tarotRef = useRef<HTMLDivElement>(null);
+
   const curAngleRef = useRef<number[]>(new Array(N).fill(0));
   const curYRef = useRef<number[]>(new Array(N).fill(0));
   const rafRef = useRef<number>(0);
@@ -44,47 +62,54 @@ export default function CardFanSection() {
     function tick() {
       rafRef.current = requestAnimationFrame(tick);
 
-      // Derive scroll progress 0→1 from how far the outer container has scrolled past the viewport top
-      const rect = outer!.getBoundingClientRect();
-      const scrollable = outer!.scrollHeight - window.innerHeight;
-      const raw = scrollable > 0 ? Math.min(1, Math.max(0, -rect.top / scrollable)) : 0;
+      const rect = outer.getBoundingClientRect();
+      const viewportMid = window.innerHeight / 2;
+      const elMid = rect.top + rect.height / 2;
 
-      // Smooth the progress value
-      scrollPRef.current += (raw - scrollPRef.current) * 0.06;
+      const distanceToCenter = Math.abs(viewportMid - elMid);
+      const threshold = window.innerHeight * 0.7;
+
+      let raw = 0;
+      if (distanceToCenter < threshold) {
+        raw = 1 - distanceToCenter / threshold;
+      }
+
+      raw = Math.min(1, raw * 1.5);
+
+      scrollPRef.current += (raw - scrollPRef.current) * 0.15;
       const sc = scrollPRef.current;
 
-      const phase1 = Math.min(sc / 0.4, 1);
-      const phase2 = Math.max((sc - 0.4) / 0.6, 0);
+      const prog = ease(sc);
 
       wrapsRef.current.forEach((wrap, i) => {
         if (!wrap) return;
+
         const isCenter = i === Math.floor(N / 2);
-        const moveX = phase1 * 440;
-        const prog = ease(phase2);
+        const moveX = sc * 440;
         const angle = fanAngles[i] * prog;
-        curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.08;
+
+        curAngleRef.current[i] +=
+          (angle - curAngleRef.current[i]) * 0.08;
+
         const arc = -50 * Math.sin(prog * Math.PI);
         curYRef.current[i] += (arc - curYRef.current[i]) * 0.08;
 
-        wrap.style.transform = `translateX(${moveX}px) rotateZ(${curAngleRef.current[i]}deg) translateY(${curYRef.current[i]}px)`;
-        wrap.style.opacity =
-          phase1 < 1
-            ? isCenter ? "1" : "0"
-            : String(Math.min(1, phase2 * 1.2));
+        wrap.style.transform = `
+          translateX(${moveX}px)
+          rotateZ(${curAngleRef.current[i]}deg)
+          translateY(${curYRef.current[i]}px)
+        `;
+
+        wrap.style.opacity = isCenter
+          ? "1"
+          : String(Math.min(1, sc * 1.5));
       });
 
-      const tarot = tarotRef.current;
-      if (!tarot) return;
-
-      if (sc >= 0.99) {
-        tarot.style.opacity = "1";
-        const lastCard = wrapsRef.current[N - 1]?.getBoundingClientRect();
-        if (lastCard) {
-          tarot.style.top = `${window.innerHeight / 2 - tarot.offsetHeight / 2}px`;
-          tarot.style.left = `${lastCard.left - tarot.offsetWidth - 20}px`;
-        }
-      } else {
-        tarot.style.opacity = "0";
+      if (tarotRef.current) {
+        tarotRef.current.style.opacity = Math.max(
+          0,
+          (sc - 0.6) * 2.5
+        ).toString();
       }
     }
 
@@ -100,93 +125,84 @@ export default function CardFanSection() {
         }
       `}</style>
 
-      {/*
-        OUTER: tall scroll container (300vh).
-        This is what gives the section its "scroll budget".
-        The page scrolls normally through it — no wheel hijacking needed.
-        Increase to 400vh or 500vh for a slower, longer animation.
-      */}
       <div
         ref={outerRef}
-        style={{ height: "300vh", background: "#0d0500" }}
+        className="relative w-full overflow-hidden flex items-center justify-center"
+        style={{
+          border: "1px solid red",
+          height: "100vh",
+          background: "#0d0500",
+          // fontFamily: "Georgia, serif",
+          perspective: "900px",
+        }}
       >
-        {/*
-          INNER: sticky viewport panel.
-          Sticks to top of screen while the outer div scrolls behind it.
-          This is the correct pattern for scroll-driven animations in React/Next.js.
-        */}
-        <div
-          className="sticky top-0 w-full overflow-hidden flex items-center justify-center"
-          style={{
-            height: "100vh",
-            fontFamily: "Georgia, serif",
-            perspective: "900px",
-          }}
-        >
-          {/* Fan root — centred in the sticky panel */}
-          <div className="relative" style={{ width: 1000, height: 400 }}>
-            {CARDS.map((card, i) => (
+        <div className="relative" style={{ width: 1000, height: 400 }}>
+          {CARDS.map((card, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                if (el) wrapsRef.current[i] = el;
+              }}
+              className="absolute cursor-pointer"
+              style={{
+                width: 250,
+                height: 350,
+                bottom: 0,
+                left: 200,
+                transformOrigin: "center bottom",
+                opacity: 0,
+              }}
+            >
+              {/* IMPORTANT: relative required for next/image fill */}
               <div
-                key={i}
-                ref={(el) => { if (el) wrapsRef.current[i] = el; }}
-                className="absolute cursor-pointer"
+                className="w-full h-full rounded-2xl overflow-hidden relative border-2 border-green-600"
                 style={{
-                  width: 250,
-                  height: 350,
-                  bottom: 0,
-                  left: 0,
-                  transformOrigin: "center bottom",
-                  opacity: 0,
+                  boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
+                  background: "#111",
                 }}
               >
-                <div
-                  className="w-full h-full rounded-2xl overflow-hidden"
-                  style={{
-                    boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
-                    background: "#111",
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                {typeof card.img === "string" ? (
                   <img
                     src={card.img}
                     alt={`Card ${i + 1}`}
                     className="w-full h-full object-cover rounded-2xl"
-                    style={{ filter: "contrast(1.05) saturate(1.05)" }}
                   />
-                </div>
+                ) : (
+                  <Image
+                    src={card.img}
+                    alt={`Card ${i + 1}`}
+                    fill
+                    sizes="250px"
+                    className="object-cover rounded-2xl"
+                    priority={i === 0}
+                  />
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
 
-          {/* Scroll hint */}
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/35 text-[10px] tracking-[0.4em]"
-            style={{ animation: "hint-bob 2s infinite" }}
-          >
-            SCROLL ↓
-          </div>
-
-          {/*
-            Tarot text — stays fixed in the viewport.
-            top/left are computed in the RAF loop using getBoundingClientRect
-            of the last card, which is viewport-relative, so fixed is correct here.
-          */}
+          {/* Tarot Text */}
           <div
             ref={tarotRef}
-            className="fixed text-white pointer-events-none max-w-[300px]"
+            className="absolute text-white pointer-events-none max-w-[500px]"
             style={{
+              left: -20,
+              top: "50%",
+              transform: "translateY(-50%)",
               fontSize: 18,
               lineHeight: 1.5,
               opacity: 0,
               transition: "opacity 0.6s ease",
             }}
           >
-            <h2 className="mb-2.5 text-[22px] font-serif">The Journey Ahead</h2>
-            <p className="text-base font-serif">
-              The cards reveal hidden truths. Courage and wisdom guide you. Trust
-              your instincts, embrace change, and let your inner light illuminate
-              the path ahead. Challenges may arise, but clarity and insight will
-              lead you to fulfillment.
+            <h2 className="heading mb-2.5 text-5xl big-shoulders font-bold">
+              The Journey Ahead
+            </h2>
+            <p className="geist text-[16px] text-[#F5F5F5]">
+              The cards reveal hidden truths. Courage and wisdom guide you.
+              Trust your instincts, embrace change, and let your inner light
+              illuminate the path ahead. Challenges may arise, but clarity
+              and insight will lead you to fulfillment.
             </p>
           </div>
         </div>

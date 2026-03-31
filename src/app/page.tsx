@@ -20,11 +20,11 @@ const page = () => {
       <LogoMarquee />
       <About />
       <Marquee />
+      <CardScene/>
       <Services />
       <Testimonials />
-      <Banner />
-      <CardScene/>
       <FAQAccordion />
+      <Banner />
       {/* <LogoMarquee /> */}
 
       {/* <Aboutme /> */}
