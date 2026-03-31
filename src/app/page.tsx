@@ -9,6 +9,7 @@ import Services from './sections/Services'
 import CardScene from './component/CardScene'
 import FAQAccordion from './sections/Faq'
 import Banner from './sections/Banner'
+import ScrubbedBentoGallery from '../../testgallery'
 
 // import Footer from '../../test_two'
 
@@ -20,7 +21,7 @@ const page = () => {
       <LogoMarquee />
       <About />
       <Marquee />
-      <CardScene/>
+      <CardScene />
       <Services />
       <Testimonials />
       <FAQAccordion />
@@ -29,6 +30,7 @@ const page = () => {
 
       {/* <Aboutme /> */}
       {/* <Footer /> */}
+      <ScrubbedBentoGallery/>
     </div>
   )
 }

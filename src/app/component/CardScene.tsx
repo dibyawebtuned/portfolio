@@ -76,7 +76,8 @@ export default function CardFanSection() {
 
       raw = Math.min(1, raw * 1.5);
 
-      scrollPRef.current += (raw - scrollPRef.current) * 0.15;
+      // scrollPRef.current += (raw - scrollPRef.current) * 0.15;
+      scrollPRef.current += (raw - scrollPRef.current) * 0.09; // <-- slower
       const sc = scrollPRef.current;
 
       const prog = ease(sc);
@@ -88,11 +89,12 @@ export default function CardFanSection() {
         const moveX = sc * 440;
         const angle = fanAngles[i] * prog;
 
-        curAngleRef.current[i] +=
-          (angle - curAngleRef.current[i]) * 0.08;
+        // curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.08;
+        curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04; // <-- slower
 
         const arc = -50 * Math.sin(prog * Math.PI);
-        curYRef.current[i] += (arc - curYRef.current[i]) * 0.08;
+        // curYRef.current[i] += (arc - curYRef.current[i]) * 0.08;
+        curYRef.current[i] += (arc - curYRef.current[i]) * 0.04; // <-- slower
 
         wrap.style.transform = `
           translateX(${moveX}px)
@@ -129,7 +131,7 @@ export default function CardFanSection() {
         ref={outerRef}
         className="relative w-full overflow-hidden flex items-center justify-center"
         style={{
-          border: "1px solid red",
+          // border: "1px solid red",
           height: "100vh",
           background: "#0d0500",
           // fontFamily: "Georgia, serif",
@@ -155,7 +157,7 @@ export default function CardFanSection() {
             >
               {/* IMPORTANT: relative required for next/image fill */}
               <div
-                className="w-full h-full rounded-2xl overflow-hidden relative border-2 border-green-600"
+                className="w-full h-full rounded-2xl overflow-hidden relative"
                 style={{
                   boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
                   background: "#111",

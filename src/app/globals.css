@@ -120,3 +120,24 @@ body {
   font-weight: bold;
   letter-spacing: 2%;
 }
+
+
+
+
+
+
+.gallery--bento {
+  display: grid;
+  gap: 1vh;
+  grid-template-columns: repeat(3, 32.5vw);
+  grid-template-rows: repeat(4, 23vh);
+  justify-content: center;
+  align-content: center;
+}
+
+/* Bento grid — final expanded state (captured by Flip, then removed) */
+.gallery--final.gallery--bento {
+  grid-template-columns: repeat(3, 100vw);
+  grid-template-rows: repeat(4, 49.5vh);
+  gap: 1vh;
+}
