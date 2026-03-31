@@ -35,7 +35,7 @@ const page = () => {
 
       {/* <Aboutme /> */}
       {/* <Footer /> */}
-      <CharacterSplit/>
+      <CharacterSplit />
 
     </div>
   )

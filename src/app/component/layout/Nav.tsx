@@ -13,7 +13,7 @@ const Nav = () => {
     return (
         <header className="w-full">
             {/* Navbar Container */}
-            <div className='max-w-[1440px] mx-auto px-[80px] flex justify-between items-center py-[10px]'>
+            <div className='max-w-[1440px] mx-auto px-[20px] md:px-[80px] flex justify-between items-center py-[10px]'>
                 {/* Logo */}
                 <div>
                     <Image src={Logo_Image} alt="Logo" className="w-[57px] h-auto" />
