@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Herosection from './sections/Hero'
 import LogoMarquee from './sections/LogoMarquee'
@@ -19,6 +20,7 @@ import CharacterSplit from '../../characters'
 import HoverFollowImages from '../../cursor'
 
 
+
 const page = () => {
   return (
     <div>
@@ -32,6 +34,10 @@ const page = () => {
       <BentoGallery />
       <FAQAccordion />
       <Banner />
+
+
+
+
       {/* <SplitText /> */}
       {/* <LogoMarquee /> */}
 

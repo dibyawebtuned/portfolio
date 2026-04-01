@@ -188,7 +188,7 @@ export default function CardFanSection() {
             ref={tarotRef}
             className="absolute text-white pointer-events-none max-w-[500px]"
             style={{
-              left: -20,
+              left: -90,
               top: "50%",
               transform: "translateY(-50%)",
               fontSize: 18,

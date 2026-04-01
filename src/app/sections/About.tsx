@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from 'next/image'
+// import About_Video from "../../../public/assets/img/";
 
 const About = () => {
     const textRef = useRef<HTMLHeadingElement | null>(null);
@@ -62,59 +63,23 @@ const About = () => {
             <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]'>
                 <div className='flex flex-col md:flex-row gap-10'>
                     <div className='sm:flex-1'>
-                        <h1
-                            className="
-                            big-shoulders
-                            text-[#F0EBE6]
-                            font-bold
-                            mb-4 sm:mb-5 md:mb-6
-                            leading-tight
-                            tracking-[0.02em]
-
-                            text-[48px]
-                            lg:text-[64px]
-                            xl:text-[87px]
-                            "
-                        >
+                        <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
                             About
                         </h1>
                     </div>
 
                     <div className='sm:flex-1'>
-                        <p
-                            ref={textRef}
-                            className="
-                            geist
-                            text-justify
-                            
-                            sm:text-end
-                            text-[14px]
-                            sm:text-[15px]
-                            md:text-[16px]
-                            lg:text-[18px]
-                            xl:text-[20px]
-                            text-[#F5F5F5]
-                            max-w-full
-                            sm:max-w-[400px]
-                            md:max-w-[500px]
-                            lg:max-w-[600px]
-                            leading-relaxed
-                            sm:leading-relaxed
-                            md:leading-relaxed
-                            lg:leading-relaxed
-                            "
-                        >
-                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven.
-                            Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
+                        <p ref={textRef} className="geist text-justify sm:text-end text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] max-w-full sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed">
+                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven. Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
                             venues, and he’ll guarantee to keep you on the edge of your seat.
                         </p>
                     </div>
                 </div>
 
                 {/* ================ VIDEO SECTION ================ */}
-                <div className='mt-16 flex justify-center'>
-                    {/* <video
-                        src="/public/assets/img/video.avif"
+                <div className='mt-16 flex justify-center rounded-[20px] overflow-hidden'>
+                    <video
+                        src="/assets/img/bannervideo.mp4"
                         controls
                         autoPlay
                         loop
@@ -122,29 +87,15 @@ const About = () => {
                         className="w-full h-[480px] rounded-xl shadow-lg"
                     >
                         Your browser does not support the video tag.
-                    </video> */}
+                    </video>
 
-                    <Image
+                    {/* <Image
                         src="/assets/img/video.avif"
                         alt="Banner"
                         width={1200}
                         height={480}
                         className="w-full h-[480px] object-cover rounded-xl shadow-lg"
-                    />
-
-                    {/* Alternatively, for YouTube embed: */}
-                    {/*
-                    <iframe
-                        width="100%"
-                        height="500"
-                        className="max-w-4xl rounded-xl shadow-lg"
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-                        title="Showreel Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
-                    */}
+                    /> */}
                 </div>
             </div>
         </section>

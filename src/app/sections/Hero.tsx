@@ -1,7 +1,10 @@
 "use client"
 
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState } from "react"
 import Image from "next/image"
+import AOS from "aos"
+import "aos/dist/aos.css"
+
 import Image_hero from "../../../public/assets/img/One.png"
 import Image_card from "../../../public/assets/img/cards.png"
 import Nav from "../component/layout/Nav"
@@ -14,52 +17,23 @@ const items = [
 ]
 
 export default function MagicianPortfolio() {
-    const textRef = useRef<HTMLDivElement | null>(null)
-    const animationRef = useRef<any>(null)
-    const splitRef = useRef<any>(null)
-
-    useEffect(() => {
-        const init = async () => {
-            const gsap = (await import("gsap")).default
-            const SplitText = (await import("gsap/SplitText")).default
-            const ScrollTrigger = (await import("gsap/ScrollTrigger")).default
-
-            if (!textRef.current) return
-
-            gsap.registerPlugin(SplitText, ScrollTrigger)
-
-            document.fonts.ready.then(() => {
-                splitRef.current?.revert()
-                animationRef.current?.kill()
-
-                splitRef.current = new SplitText(textRef.current, {
-                    type: "chars",
-                })
-
-                animationRef.current = gsap.from(splitRef.current.chars, {
-                    x: 150,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power4.out",
-                    stagger: 0.05,
-                    scrollTrigger: {
-                        trigger: textRef.current,
-                        start: "top 80%",
-                    },
-                })
-            })
-        }
-
-        init()
-    }, [])
-
     const [activeIndex, setActiveIndex] = useState(0)
 
+    // Auto-cycle list
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % items.length)
         }, 1500)
         return () => clearInterval(interval)
+    }, [])
+
+    // Init AOS
+    useEffect(() => {
+        AOS.init({
+            duration: 800,
+            easing: "ease-out-cubic",
+            once: true,
+        })
     }, [])
 
     return (
@@ -73,11 +47,13 @@ export default function MagicianPortfolio() {
 
             {/* ================= DESKTOP ================= */}
             <div className="hidden lg:flex relative max-w-[1440px] mx-auto px-[80px] h-screen items-center justify-center">
-
                 <div className="relative w-full">
 
                     {/* IMAGE */}
-                    <div className="relative w-full max-w-[1440px] h-[750px]">
+                    <div
+                        className="relative w-full max-w-[1440px] h-[750px]"
+                        data-aos="fade-up"
+                    >
                         <Image
                             src={Image_hero}
                             alt="Magician"
@@ -88,12 +64,11 @@ export default function MagicianPortfolio() {
                     </div>
 
                     {/* TEXT */}
-                    <div className="absolute top-16 z-20">
-
-                        <p
-                            ref={textRef}
-                            className="text-base text-[#F5F5F5] mb-2 max-w-[400px]"
-                        >
+                    <div
+                        className="absolute top-16 z-20"
+                        data-aos="fade-up"
+                    >
+                        <p className="text-base text-[#F5F5F5] mb-2 max-w-[400px]">
                             I do believe that <br />
                             <span className="text-[#B9B9B9]">
                                 magic is a powerful communication <br />
@@ -113,7 +88,7 @@ export default function MagicianPortfolio() {
                     </div>
 
                     {/* FLOATING CARD */}
-                    <div className="absolute right-[-40px] top-[180px] w-[200px] animate-float z-30">
+                    <div className="absolute right-[-40px] top-[180px] w-[200px] z-30 floating-card">
                         <Image src={Image_card} alt="cards" />
                     </div>
                 </div>
@@ -136,9 +111,10 @@ export default function MagicianPortfolio() {
 
             {/* ================= MOBILE ================= */}
             <div className="lg:hidden relative px-6 pt-5 pb-10 flex flex-col items-center text-center">
-
-                {/* TEXT */}
-                <p ref={textRef} className="text-sm text-[#F5F5F5] mt-6">
+                <p
+                    className="text-sm text-[#F5F5F5] mt-6"
+                    data-aos="fade-up"
+                >
                     I do believe that <br />
                     <span className="text-[#B9B9B9]">
                         magic is a powerful communication <br />
@@ -147,7 +123,10 @@ export default function MagicianPortfolio() {
                 </p>
 
                 {/* IMAGE */}
-                <div className="relative w-full max-w-[520px] h-[300px]">
+                <div
+                    className="relative w-full max-w-[520px] h-[300px]"
+                    data-aos="fade-up"
+                >
                     <Image
                         src={Image_hero}
                         alt="Magician"
@@ -158,7 +137,7 @@ export default function MagicianPortfolio() {
                 </div>
 
                 {/* FLOATING CARD */}
-                <div className="absolute right-4 top-[120px] w-[100px] animate-float">
+                <div className="absolute right-4 top-[120px] w-[100px] floating-card">
                     <Image src={Image_card} alt="cards" />
                 </div>
 
@@ -166,35 +145,13 @@ export default function MagicianPortfolio() {
                     Magician & Mentalist from Nepal
                 </p>
 
-                <h1 className="uppercase big-shoulders text-6xl font-extrabold leading-tight text-[#F0EBE6] mt-2">
+                <h1
+                    className="uppercase big-shoulders text-6xl font-extrabold leading-tight text-[#F0EBE6] mt-2"
+                    data-aos="fade-up"
+                >
                     SAMAN <br /> MAHARJAN
                 </h1>
-
-                {/* MOBILE LIST */}
-                <ul className="hidden flex gap-4 mt-6 text-xs">
-                    {items.map((item, index) => (
-                        <li
-                            key={index}
-                            className={`transition-all ${index === activeIndex ? "text-white" : "text-gray-500"
-                                }`}
-                        >
-                            {item}
-                        </li>
-                    ))}
-                </ul>
             </div>
-
-            {/* FLOAT ANIMATION */}
-            <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-          100% { transform: translateY(0px) rotate(0deg); }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-      `}</style>
         </div>
     )
 }

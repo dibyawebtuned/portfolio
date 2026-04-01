@@ -6,20 +6,26 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 
-import Image1 from "../../../public/assets/img/saman_1.png";
-import Image2 from "../../../public/assets/img/saman_2.png";
-import Image3 from "../../../public/assets/img/saman_3.png";
-import Image4 from "../../../public/assets/img/saman_4.png";
+import Image1 from "../../../public/assets/img/saman1.jpg";
+import Image2 from "../../../public/assets/img/325602704_750515326670699_7945634941744234587_n.jpg";
+import Image3 from "../../../public/assets/img/325708854_712621500417857_18698700844415858_n.jpg";
+import Image4 from "../../../public/assets/img/325715182_5739234289445565_3939970997686376121_n.jpg";
+import Image5 from "../../../public/assets/img/325768321_3408275849391559_8724471947943424731_n.jpg";
+import Image6 from "../../../public/assets/img/325809555_689754782788133_7965496872996652222_n.jpg";
+import Image7 from "../../../public/assets/img/622120451_18087871415087154_4320207763850126380_n.jpg";
+import Image8 from "../../../public/assets/img/622901083_18009066830827379_1187831166489400131_n.jpg";
+import Image9 from "../../../public/assets/img/625159026_18098062882911256_42396779877274350_n.jpg";
+import Image10 from "../../../public/assets/img/639833874_18529285693067212_5277775726547890221_n.jpg";
 
 const images = [
     Image1,
     Image2,
-    Image3,
-    Image4,
-    Image2,
-    Image2,
-    Image2,
-    Image2,
+    Image9,
+    Image10,
+    Image5,
+    Image8,
+    Image7,
+    Image6,
 ];
 
 const gridAreas = [
@@ -143,11 +149,11 @@ export default function BentoGallery() {
 
             <div className="px-20 py-8">
                 {/* <h2 className="text-2xl font-semibold mb-4">Here is some content</h2> */}
-                {Array.from({ length: 1 }).map((_, i) => (
+                {/* {Array.from({ length: 1 }).map((_, i) => (
                     <p key={i} className="text-xl mb-4 leading-relaxed">
                         Saman has been enthralled by magic since 2010. He recalls what he was like as a child. He purchased a few tricks and started practicing them with his family and friends. After meeting a couple in Pokhara in 2013, Saman was asked to perform a stand-up act at their wedding. The reactions to his then-amateurish performance as a magician were astounding, and Saman understood he had the ability to develop his newfound pleasure into something considerably more professional. He has performed as a Magician in Kathmandu for a range of events including corporate events, private parties, weddings, formal dinners, celebrity appearances, trade fairs, and festivals. Elevate your next corporate event with a captivating and thought-provoking performance that blends magic and keynote speaking to inspire and encourage creativity with your audience.
                     </p>
-                ))}
+                ))} */}
             </div>
         </>
     );
