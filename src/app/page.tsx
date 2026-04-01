@@ -11,14 +11,6 @@ import CardScene from './component/CardScene'
 import FAQAccordion from './sections/Faq'
 import Banner from './sections/Banner'
 import BentoGallery from './sections/Gallery'
-import SplitText from '../../marked'
-
-import CharacterSplit from '../../characters'
-
-// import Footer from '../../test_two'
-
-import HoverFollowImages from '../../cursor'
-
 
 
 const page = () => {
@@ -34,19 +26,6 @@ const page = () => {
       <BentoGallery />
       <FAQAccordion />
       <Banner />
-
-
-
-
-      {/* <SplitText /> */}
-      {/* <LogoMarquee /> */}
-
-      {/* <Aboutme /> */}
-      {/* <Footer /> */}
-      {/* <CharacterSplit /> */}
-
-      {/* <HoverFollowImages/> */}
-
     </div>
   )
 }

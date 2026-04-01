@@ -47,10 +47,10 @@ const Faq = () => {
             {/* Background Gradient Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" />
 
-            <div className='relative max-w-[1440px] mx-auto px-[80px] py-[100px] flex flex-col gap-[40px]'>
+            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px] flex flex-col gap-[40px]'>
                 {/* ========== HEADER ========== */}
                 <div className='flex flex-col items-center text-center px-4'>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[87px] text-[#F0EBE6] big-shoulders big-shoulders-bold tracking-wide">
+                    <h1 className="big-shoulders big-shoulders-bold leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px] text-[#F0EBE6]">
                         FAQ
                     </h1>
 

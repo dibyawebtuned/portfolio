@@ -74,7 +74,7 @@ const Banner = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-70 pointer-events-none blur-3xl" />
 
             {/* Content */}
-            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[80px]'>
+            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]'>
 
                 <div className="text-center">
                     <h1
@@ -87,9 +87,7 @@ const Banner = () => {
                             leading-tight
                             tracking-[0.02em]
 
-                            text-[48px]
-                            lg:text-[64px]
-                            xl:text-[87px]
+                            text-[48px] lg:text-[64px] xl:text-[87px]
                             ">
                         Witness the Magic
                     </h1>

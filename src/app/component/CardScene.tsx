@@ -56,13 +56,13 @@ export default function CardFanSection() {
   const scrollPRef = useRef(0);
 
   useEffect(() => {
-    const outer = outerRef.current;
-    if (!outer) return;
-
-    function tick() {
-      rafRef.current = requestAnimationFrame(tick);
+    const tick = () => {
+      const outer = outerRef.current;
+      if (!outer) return;
 
       const rect = outer.getBoundingClientRect();
+      if (!rect) return; // <-- safe check
+
       const viewportMid = window.innerHeight / 2;
       const elMid = rect.top + rect.height / 2;
 
@@ -76,46 +76,38 @@ export default function CardFanSection() {
 
       raw = Math.min(1, raw * 1.5);
 
-      // scrollPRef.current += (raw - scrollPRef.current) * 0.15;
-      scrollPRef.current += (raw - scrollPRef.current) * 0.09; // <-- slower
+      scrollPRef.current += (raw - scrollPRef.current) * 0.09;
       const sc = scrollPRef.current;
-
-      const prog = ease(sc);
 
       wrapsRef.current.forEach((wrap, i) => {
         if (!wrap) return;
 
         const isCenter = i === Math.floor(N / 2);
         const moveX = sc * 440;
-        const angle = fanAngles[i] * prog;
+        const angle = fanAngles[i] * ease(sc);
 
-        // curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.08;
-        curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04; // <-- slower
-
-        const arc = -50 * Math.sin(prog * Math.PI);
-        // curYRef.current[i] += (arc - curYRef.current[i]) * 0.08;
-        curYRef.current[i] += (arc - curYRef.current[i]) * 0.04; // <-- slower
+        curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04;
+        const arc = -50 * Math.sin(ease(sc) * Math.PI);
+        curYRef.current[i] += (arc - curYRef.current[i]) * 0.04;
 
         wrap.style.transform = `
-          translateX(${moveX}px)
-          rotateZ(${curAngleRef.current[i]}deg)
-          translateY(${curYRef.current[i]}px)
-        `;
+        translateX(${moveX}px)
+        rotateZ(${curAngleRef.current[i]}deg)
+        translateY(${curYRef.current[i]}px)
+      `;
 
-        wrap.style.opacity = isCenter
-          ? "1"
-          : String(Math.min(1, sc * 1.5));
+        wrap.style.opacity = isCenter ? "1" : String(Math.min(1, sc * 1.5));
       });
 
       if (tarotRef.current) {
-        tarotRef.current.style.opacity = Math.max(
-          0,
-          (sc - 0.6) * 2.5
-        ).toString();
+        tarotRef.current.style.opacity = Math.max(0, (sc - 0.6) * 2.5).toString();
       }
-    }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
 
     tick();
+
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 

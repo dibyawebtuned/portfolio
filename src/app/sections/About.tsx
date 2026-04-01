@@ -1,27 +1,31 @@
 "use client";
+
 import { useEffect, useRef } from "react";
-import Image from 'next/image'
-// import About_Video from "../../../public/assets/img/";
+import Image from "next/image";
+import { gsap } from "gsap";
 
 const About = () => {
-    const textRef = useRef<HTMLHeadingElement | null>(null);
-    const animationRef = useRef<any>(null);
+    // Reference for the text to animate
+    const textRef = useRef<HTMLParagraphElement | null>(null);
+
+    // Reference for GSAP animation instance
+    const animationRef = useRef<GSAPTween | null>(null);
 
     useEffect(() => {
         const loadGSAP = async () => {
-            const gsapModule = await import("gsap");
-            const gsap = gsapModule.default;
+            // Dynamic import of GSAP plugins
+            const SplitTextModule = await import("gsap/SplitText");
+            const SplitText = SplitTextModule.default;
 
-            // @ts-ignore (SplitText is external)
-            const SplitText = (await import("gsap/SplitText")).default || (window as any).SplitText;
+            const ScrollTriggerModule = await import("gsap/ScrollTrigger");
+            const ScrollTrigger = ScrollTriggerModule.default;
 
-            // @ts-ignore (ScrollTrigger is external)
-            const ScrollTriggerModule = (await import("gsap/ScrollTrigger")).default || (window as any).ScrollTrigger;
+            // Register plugins
+            gsap.registerPlugin(SplitText, ScrollTrigger);
 
-            if (!textRef.current || !SplitText || !ScrollTriggerModule) return;
+            if (!textRef.current) return;
 
-            gsap.registerPlugin(SplitText, ScrollTriggerModule);
-
+            // Wait for fonts to load for smoother animation
             document.fonts.ready.then(() => {
                 gsap.set(textRef.current, { opacity: 1 });
 
@@ -30,6 +34,7 @@ const About = () => {
                     linesClass: "line",
                 });
 
+                // Animate each line
                 animationRef.current = gsap.from(splitInstance.lines, {
                     duration: 1.2,
                     yPercent: 120,
@@ -38,7 +43,7 @@ const About = () => {
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: textRef.current,
-                        start: "top 80%", // Trigger when top of element hits 80% of viewport height
+                        start: "top 80%", // When top of element hits 80% viewport height
                         toggleActions: "play none none none", // Play once
                     },
                 });
@@ -48,6 +53,7 @@ const About = () => {
         loadGSAP();
     }, []);
 
+    // Optional: replay animation
     const handleReplay = () => {
         if (animationRef.current) {
             animationRef.current.timeScale(0.3).restart();
@@ -59,47 +65,43 @@ const About = () => {
             {/* Background Gradient Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" />
 
-            {/* CONTENT CONTAINER */}
-            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]'>
-                <div className='flex flex-col md:flex-row gap-10'>
-                    <div className='sm:flex-1'>
+            {/* Content Container */}
+            <div className="relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
+                <div className="flex flex-col md:flex-row gap-10">
+                    <div className="sm:flex-1">
                         <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
                             About
                         </h1>
                     </div>
 
-                    <div className='sm:flex-1'>
-                        <p ref={textRef} className="geist text-justify sm:text-end text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] max-w-full sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed">
-                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he began learning magic at the age of eleven. Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical
-                            venues, and he’ll guarantee to keep you on the edge of your seat.
+                    <div className="sm:flex-1">
+                        <p ref={textRef} className="geist text-justify sm:text-end text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] max-w-full sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed opacity-0"
+                        >
+                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he
+                            began learning magic at the age of eleven. Saman’s unique and
+                            artistic style has dazzled audiences everywhere from small private
+                            parties to large theatrical venues, and he’ll guarantee to keep
+                            you on the edge of your seat.
                         </p>
                     </div>
                 </div>
 
-                {/* ================ VIDEO SECTION ================ */}
-                <div className='mt-16 flex justify-center rounded-[20px] overflow-hidden'>
+                {/* Video Section */}
+                <div className="mt-16 flex justify-center rounded-[20px] overflow-hidden">
                     <video
                         src="/assets/img/bannervideo.mp4"
                         controls
                         autoPlay
                         loop
                         muted
-                        className="w-full h-[480px] rounded-xl shadow-lg"
+                        className="w-full h-[480px] rounded-xl shadow-lg object-cover"
                     >
                         Your browser does not support the video tag.
                     </video>
-
-                    {/* <Image
-                        src="/assets/img/video.avif"
-                        alt="Banner"
-                        width={1200}
-                        height={480}
-                        className="w-full h-[480px] object-cover rounded-xl shadow-lg"
-                    /> */}
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default About
+export default About;

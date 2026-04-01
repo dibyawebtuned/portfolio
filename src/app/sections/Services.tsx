@@ -74,10 +74,10 @@ const HoverFollowImages = () => {
     ];
 
     return (
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-12 md:px-20 lg:px-32 py-16 sm:py-20 md:py-28">
+        <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
             {/* Header */}
             <div className="text-center mb-16">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold big-shoulders text-[#F0EBE6]">
+                <h1 className="big-shoulders font-bold text-[48px] lg:text-[64px] xl:text-[87px] text-[#F0EBE6]">
                     What I Do
                 </h1>
                 <p className="mt-4 mx-auto text-sm sm:text-base md:text-lg lg:text-xl max-w-xl sm:max-w-2xl leading-relaxed text-[#F0EBE6] opacity-80">
