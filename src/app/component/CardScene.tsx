@@ -3,17 +3,17 @@
 import { useEffect, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import Image1 from "../../../public/assets/img/325602704_750515326670699_7945634941744234587_n.jpg";
-import Image2 from "../../../public/assets/img/325708854_712621500417857_18698700844415858_n.jpg";
-import Image3 from "../../../public/assets/img/325715182_5739234289445565_3939970997686376121_n.jpg";
-import Image4 from "../../../public/assets/img/325768321_3408275849391559_8724471947943424731_n.jpg";
-import Image5 from "../../../public/assets/img/325809555_689754782788133_7965496872996652222_n.jpg";
-import Image6 from "../../../public/assets/img/325898244_123644257071868_1026945039984908365_n.jpg";
-import Image7 from "../../../public/assets/img/622120451_18087871415087154_4320207763850126380_n.jpg";
-import Image8 from "../../../public/assets/img/622901083_18009066830827379_1187831166489400131_n.jpg";
-import Image9 from "../../../public/assets/img/624490739_17976261383817865_5403844401383955609_n.jpg";
-import Image10 from "../../../public/assets/img/625159026_18098062882911256_42396779877274350_n.jpg";
-import Image01 from "../../../public/assets/img/saman_4.png";
+import Image1 from "../../../public/assets/img/cards/Component_3.png";
+import Image2 from "../../../public/assets/img/cards/component_A_leaf.png";
+import Image3 from "../../../public/assets/img/cards/component_4_heart.png";
+import Image4 from "../../../public/assets/img/cards/component_A_heart.png";
+import Image5 from "../../../public/assets/img/cards/compoenent_5_leaf.png";
+import Image6 from "../../../public/assets/img/cards/compoenent_5_diamond.png";
+import Image7 from "../../../public/assets/img/cards/compoenent_Q_leaf.png";
+import Image8 from "../../../public/assets/img/cards/compoenent_Q_heart.png";
+import Image9 from "../../../public/assets/img/cards/compoent_A_heart.png";
+import Image10 from "../../../public/assets/img/cards/compenent_A_diamond.png";
+import Image01 from "../../../public/assets/img/cards/component_4_diamond.png";
 
 type CardType = {
   img: string | StaticImageData;
@@ -151,8 +151,8 @@ export default function CardFanSection() {
                 <div
                   className="w-full h-full rounded-2xl overflow-hidden relative"
                   style={{
-                    boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
-                    background: "#111",
+                    // boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
+                    // background: "#111",
                   }}
                 >
                   {typeof card.img === "string" ? (

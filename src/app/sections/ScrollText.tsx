@@ -72,7 +72,7 @@ export default function HorizontalScrollText() {
                 <div className="container mx-auto">
                     <h3
                         ref={textRef}
-                        className="flex w-max whitespace-nowrap gap-[1vw] pt-[50px] sm:pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
+                        className="big-shoulders flex w-max whitespace-nowrap gap-[1vw] pt-[50px] sm:pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
                     >
                         Where Magic Meets Mind, Revealing What the Eyes Cannot See.
                     </h3>

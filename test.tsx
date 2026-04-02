@@ -1,209 +1,111 @@
+// components/HorizontalGallery.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image, { StaticImageData } from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Clock, UserCheck, Handshake, Users } from "lucide-react";
 
-import Image1 from "../../../public/assets/img/325602704_750515326670699_7945634941744234587_n.jpg";
-import Image2 from "../../../public/assets/img/325708854_712621500417857_18698700844415858_n.jpg";
-import Image3 from "../../../public/assets/img/325715182_5739234289445565_3939970997686376121_n.jpg";
-import Image4 from "../../../public/assets/img/325768321_3408275849391559_8724471947943424731_n.jpg";
-import Image5 from "../../../public/assets/img/325809555_689754782788133_7965496872996652222_n.jpg";
-import Image6 from "../../../public/assets/img/325898244_123644257071868_1026945039984908365_n.jpg";
-import Image7 from "../../../public/assets/img/622120451_18087871415087154_4320207763850126380_n.jpg";
-import Image8 from "../../../public/assets/img/622901083_18009066830827379_1187831166489400131_n.jpg";
-import Image9 from "../../../public/assets/img/624490739_17976261383817865_5403844401383955609_n.jpg";
-import Image10 from "../../../public/assets/img/625159026_18098062882911256_42396779877274350_n.jpg";
+gsap.registerPlugin(ScrollTrigger);
 
-type CardType = {
-    img: string | StaticImageData;
-};
-
-const CARDS: CardType[] = [
-    { img: Image1 },
-    { img: Image2 },
-    { img: Image3 },
-    { img: Image4 },
-    { img: Image5 },
-    { img: Image6 },
-    { img: Image7 },
-    { img: Image8 },
-    { img: Image9 },
-    { img: Image10 },
+const items = [
+    {
+        icon: <Clock size={32} />,
+        title: "ALWAYS ON TIME",
+        description:
+            "We know that time is precious, especially in the corporate event world. Our magicians arrive promptly, allowing you to focus on other crucial aspects of your event without worrying about delays or disruptions.",
+    },
+    {
+        icon: <UserCheck size={32} />,
+        title: "WELL-DRESSED",
+        description:
+            "First impressions matter, and our best corporate magicians really understand the significance of dressing to impress. They exude sophistication, elegance, and style.",
+    },
+    {
+        icon: <Handshake size={32} />,
+        title: "PROFESSIONAL CONDUCT",
+        description:
+            "Our corporate magicians maintain a respectful and courteous demeanor throughout the event. They interact seamlessly with your guests.",
+    },
+    {
+        icon: <Users size={32} />,
+        title: "TAILORED FOR ADULTS",
+        description:
+            "Corporate events often cater to adult audiences who have seen it all. Each magician specializes in captivating and engaging sophisticated crowds.",
+    },
 ];
 
-const FAN_DEG = 80;
-const N = CARDS.length;
-
-const fanAngles = CARDS.map(
-    (_, i) => -FAN_DEG / 2 + (i / (N - 1)) * FAN_DEG
-);
-
-function ease(t: number): number {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-export default function CardFanSection() {
-    const outerRef = useRef<HTMLDivElement>(null);
-    const wrapsRef = useRef<HTMLDivElement[]>([]);
-    const tarotRef = useRef<HTMLDivElement>(null);
-
-    const curAngleRef = useRef<number[]>(new Array(N).fill(0));
-    const curYRef = useRef<number[]>(new Array(N).fill(0));
-    const rafRef = useRef<number>(0);
-    const scrollPRef = useRef(0);
+export default function HorizontalGallery() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const stripRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tick = () => {
-            const outer = outerRef.current;
-            if (!outer) return;
+        if (!sectionRef.current || !stripRef.current) return;
 
-            const rect = outer.getBoundingClientRect();
-            const viewportMid = window.innerHeight / 2;
-            const elMid = rect.top + rect.height / 2;
+        const strip = stripRef.current;
+        let stripWidth = strip.scrollWidth;
+        let scrollDistance = stripWidth - window.innerWidth;
 
-            const distanceToCenter = Math.abs(viewportMid - elMid);
-            const threshold = window.innerHeight * 0.7;
+        const horizontalScroll = gsap.to(strip, {
+            x: () => -scrollDistance,
+            ease: "none",
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: () => `+=${scrollDistance}`,
+                scrub: true,
+                pin: true,
+                anticipatePin: 1,
+            },
+        });
 
-            let raw = 0;
-            if (distanceToCenter < threshold) {
-                raw = 1 - distanceToCenter / threshold;
-            }
-
-            raw = Math.min(1, raw * 1.5);
-            scrollPRef.current += (raw - scrollPRef.current) * 0.09;
-            const sc = scrollPRef.current;
-
-            // Responsiveness Checks
-            const isMobile = window.innerWidth < 768;
-            // On mobile, keep it centered. On desktop, shift right by 22% of screen width.
-            const shiftX = isMobile ? 0 : window.innerWidth * 0.22;
-            // Slightly reduce the fan angle on mobile to prevent overflow
-            const mobileAngleScale = isMobile ? 0.8 : 1;
-            // Reduce the upward bounce arc on smaller screens
-            const maxArc = isMobile ? -30 : -50;
-
-            wrapsRef.current.forEach((wrap, i) => {
-                if (!wrap) return;
-
-                const isCenter = i === Math.floor(N / 2);
-                const moveX = sc * shiftX;
-                const angle = fanAngles[i] * mobileAngleScale * ease(sc);
-
-                curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04;
-                const arc = maxArc * Math.sin(ease(sc) * Math.PI);
-                curYRef.current[i] += (arc - curYRef.current[i]) * 0.04;
-
-                // Use calc(-50% + moveX) because we initially center it using left: 50%
-                wrap.style.transform = `
-          translateX(calc(-50% + ${moveX}px))
-          rotateZ(${curAngleRef.current[i]}deg)
-          translateY(${curYRef.current[i]}px)
-        `;
-
-                wrap.style.opacity = isCenter ? "1" : String(Math.min(1, sc * 1.5));
-            });
-
-            if (tarotRef.current) {
-                tarotRef.current.style.opacity = Math.max(0, (sc - 0.6) * 2.5).toString();
-            }
-
-            rafRef.current = requestAnimationFrame(tick);
+        const handleResize = () => {
+            horizontalScroll.scrollTrigger?.refresh();
         };
+        window.addEventListener("resize", handleResize);
 
-        tick();
-
-        return () => cancelAnimationFrame(rafRef.current);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     return (
-        <div
-            ref={outerRef}
-            className="relative w-full overflow-hidden flex items-center justify-center bg-[#0d0500]"
-            style={{
-                height: "100svh", // 'svh' avoids layout jumps on mobile browsers with dynamic URL bars
-                minHeight: "600px",
-                perspective: "900px",
-            }}
-        >
-            <div className="relative w-full max-w-7xl h-full mx-auto">
+        <section className="relative w-full bg-black font-sans text-white overflow-hidden">
+            {/* Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,_#F13333_0%,_transparent_70%)] opacity-40 pointer-events-none" />
 
-                {/* Tarot Text */}
-                <div
-                    ref={tarotRef}
-                    className="absolute z-10 text-white pointer-events-none w-[90%] md:w-full 
-                     max-w-[400px] lg:max-w-[500px] text-center md:text-left drop-shadow-lg"
-                    style={{
-                        // Position top-center on mobile, middle-left on desktop
-                        top: "12%",
-                        left: "50%",
-                        transform: "translateX(-50%)", // Replaced by CSS classes via Tailwind logic below, keeping minimal inline overrides
-                        opacity: 0,
-                        transition: "opacity 0.6s ease",
-                    }}
-                >
-                    {/* Overriding inline left/transform with md: utilities to place it properly on larger screens */}
-                    <style>{`
-            @media (min-width: 768px) {
-              div[data-tarot-text] {
-                top: 50% !important;
-                left: 8% !important;
-                transform: translateY(-50%) !important;
-              }
-            }
-          `}</style>
+            <section ref={sectionRef} className="relative py-16">
+                <h1 className="big-shoulders text-center text-[#F0EBE6] font-bold mb-12 leading-tight tracking-[0.02em] text-[48px] sm:text-[64px] lg:text-[87px]">
+                    How am I?
+                </h1>
 
-                    <div data-tarot-text className="w-full h-full absolute inset-0 hidden"></div>
+                <div className="overflow-hidden">
+                    <div ref={stripRef} className="flex flex-nowrap gap-8 px-6">
+                        {items.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="flex-shrink-0 w-80 sm:w-100 p-6 rounded-3xl shadow-2xl backdrop-blur-md bg-black/50 border border-white/10 flex flex-col items-center text-center transform transition-transform hover:shadow-3xl"
+                            >
+                                {/* Glowing Icon */}
+                                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-tr from-[#F13333] to-[#F13333]/10 shadow-lg relative animate-pulseHover mb-4">
+                                    <span className="text-white">{item.icon}</span>
+                                    {/* Glow ring */}
+                                    <div className="absolute inset-0 rounded-full border border-[#F13333]/50 blur-md animate-pulseSlow"></div>
+                                </div>
 
-                    <h2 className="mb-2.5 text-4xl md:text-5xl font-bold tracking-wide">
-                        The Journey Ahead
-                    </h2>
-                    <p className="text-[14px] md:text-[16px] text-[#F5F5F5] leading-relaxed">
-                        The cards reveal hidden truths. Courage and wisdom guide you.
-                        Trust your instincts, embrace change, and let your inner light
-                        illuminate the path ahead. Challenges may arise, but clarity
-                        and insight will lead you to fulfillment.
-                    </p>
-                </div>
+                                {/* Gradient Title */}
+                                {/* <h3 className="big-shoulders text-2xl sm:text-3xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-[#F13333] via-[#FF5F5F] to-[#F13333]"> */}
+                                <h3 className="big-shoulders text-2xl sm:text-3xl font-semibold mb-3 text-[#F0EBE6]">
+                                    {item.title}
+                                </h3>
 
-                {/* Cards */}
-                {CARDS.map((card, i) => (
-                    <div
-                        key={i}
-                        ref={(el) => {
-                            if (el) wrapsRef.current[i] = el;
-                        }}
-                        className="absolute cursor-pointer bottom-[10%] md:bottom-[15%] left-1/2 
-                       w-[140px] h-[200px] sm:w-[180px] sm:h-[260px] md:w-[250px] md:h-[350px]"
-                        style={{
-                            transformOrigin: "center bottom",
-                            opacity: 0,
-                        }}
-                    >
-                        <div
-                            className="w-full h-full rounded-xl md:rounded-2xl overflow-hidden relative bg-[#111]"
-                            style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.7)" }}
-                        >
-                            {typeof card.img === "string" ? (
-                                <img
-                                    src={card.img}
-                                    alt={`Card ${i + 1}`}
-                                    className="w-full h-full object-cover rounded-xl md:rounded-2xl"
-                                />
-                            ) : (
-                                <Image
-                                    src={card.img}
-                                    alt={`Card ${i + 1}`}
-                                    fill
-                                    sizes="(max-width: 768px) 180px, 250px"
-                                    className="object-cover rounded-xl md:rounded-2xl"
-                                    priority={i === 0}
-                                />
-                            )}
-                        </div>
+                                {/* Description */}
+                                <p className="geist text-gray-300 text-[15px] leading-relaxed">
+                                    {item.description}
+                                </p>
+                            </div>
+                        ))}
                     </div>
-                ))}
-
-            </div>
-        </div>
+                </div>
+            </section>
+        </section>
     );
 }

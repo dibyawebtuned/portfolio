@@ -61,9 +61,9 @@ const About = () => {
     };
 
     return (
-        <section className="relative w-full bg-black overflow-hidden font-sans text-white">
+        <section className="relative w-full bg-[#0f0f0f] overflow-hidden font-sans text-white">
             {/* Background Gradient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" />
+            {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" /> */}
 
             {/* Content Container */}
             <div className="relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
@@ -90,10 +90,10 @@ const About = () => {
                 <div className="mt-16 flex justify-center rounded-[20px] overflow-hidden">
                     <video
                         src="/assets/img/bannervideo.mp4"
-                        controls
                         autoPlay
                         loop
                         muted
+                        playsInline
                         className="w-full h-[480px] rounded-xl shadow-lg object-cover"
                     >
                         Your browser does not support the video tag.

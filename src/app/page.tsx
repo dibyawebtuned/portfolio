@@ -17,6 +17,8 @@ import BentoGallery from './sections/Gallery'
 // import HorizontalScrollText from '../../test_two'
 import HorizontalScrollText from './sections/ScrollText'
 
+import HorizontalGallery from '../../test';
+
 
 const page = () => {
   return (
@@ -29,11 +31,13 @@ const page = () => {
       <HorizontalScrollText />
 
       <CardScene />
+      <HorizontalGallery />
       <Services />
       <Testimonials />
       <BentoGallery />
       <FAQAccordion />
       <Banner />
+
     </div>
   )
 }
