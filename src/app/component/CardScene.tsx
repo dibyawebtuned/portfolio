@@ -62,7 +62,7 @@ export default function CardFanSection() {
       if (!outer) return;
 
       const rect = outer.getBoundingClientRect();
-      if (!rect) return; // <-- safe check
+      if (!rect) return;
 
       const viewportMid = window.innerHeight / 2;
       const elMid = rect.top + rect.height / 2;
