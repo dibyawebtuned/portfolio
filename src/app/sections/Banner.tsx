@@ -1,38 +1,50 @@
-"use client"
+"use client";
+
 import { useEffect, useRef } from "react";
 
+// ✅ Correct GSAP types
+import type { Context, Tween } from "gsap";
+import type SplitTextType from "gsap/SplitText";
+
 const Banner = () => {
-    const textRef = useRef<HTMLDivElement | null>(null);
-    const animationRef = useRef<any>(null);
-    const splitRef = useRef<any>(null);
+    const textRef = useRef<HTMLHeadingElement | null>(null);
+
+    // ✅ Properly typed refs
+    const animationRef = useRef<Tween | null>(null);
+    const splitRef = useRef<SplitTextType | null>(null);
+    const ctxRef = useRef<Context | null>(null);
 
     useEffect(() => {
         const init = async () => {
             const gsapModule = await import("gsap");
             const gsap = gsapModule.default;
 
-            // Dynamic imports for plugins
             const SplitTextModule = await import("gsap/SplitText");
             const ScrollTriggerModule = await import("gsap/ScrollTrigger");
 
             const SplitText = SplitTextModule.default;
             const ScrollTrigger = ScrollTriggerModule.default;
 
-            if (!textRef.current || !SplitText || !ScrollTrigger) return;
+            if (!textRef.current) return;
 
+            // ✅ Register plugins
             gsap.registerPlugin(SplitText, ScrollTrigger);
 
-            document.fonts.ready.then(() => {
-                // cleanup previous if exists
-                splitRef.current && splitRef.current.revert();
-                animationRef.current && animationRef.current.kill();
+            // ✅ Wait for fonts
+            await document.fonts.ready;
 
-                // split text into characters
-                splitRef.current = new SplitText(textRef.current, {
+            // ✅ GSAP context (React-safe)
+            ctxRef.current = gsap.context(() => {
+                // cleanup old instances
+                splitRef.current?.revert();
+                animationRef.current?.kill();
+
+                // split text
+                splitRef.current = new SplitText(textRef.current!, {
                     type: "chars",
                 });
 
-                // animate characters when section is in viewport
+                // animation
                 animationRef.current = gsap.from(splitRef.current.chars, {
                     x: 150,
                     opacity: 0,
@@ -41,41 +53,47 @@ const Banner = () => {
                     stagger: 0.05,
                     scrollTrigger: {
                         trigger: textRef.current,
-                        start: "top 80%", // when top of element hits 80% of viewport
+                        start: "top 80%",
                         toggleActions: "play none none none",
                     },
                 });
-            });
+            }, textRef);
         };
 
         init();
+
+        // ✅ Cleanup (VERY important)
+        return () => {
+            ctxRef.current?.revert();
+            splitRef.current?.revert();
+            animationRef.current?.kill();
+        };
     }, []);
 
     const handleReplay = () => {
-        if (animationRef.current) {
-            animationRef.current.restart();
-        }
+        animationRef.current?.restart();
     };
+
     return (
         <div className="relative w-full bg-black overflow-hidden font-sans text-white">
-
-            {/* ===== Background Image ===== */}
-            <div className="absolute inset-0 bg-cover bg-center opacity-30"
+            
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 bg-cover bg-center opacity-30"
                 style={{
-                    // backgroundImage: "url('/assets/img/banner-bg.jpg')",
                     backgroundImage: "url('/assets/img/One.png')",
                 }}
             />
 
-            {/* Optional Dark Overlay (better readability) */}
+            {/* Overlay */}
             <div className="absolute inset-0 bg-black/60" />
 
-            {/* Background Glow */}
+            {/* Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-70 pointer-events-none blur-3xl" />
 
             {/* Content */}
-            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]'>
-
+            <div className="relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
+                
                 <div className="text-center">
                     <h1
                         ref={textRef}
@@ -86,9 +104,9 @@ const Banner = () => {
                             mb-4 sm:mb-5 md:mb-6
                             leading-tight
                             tracking-[0.02em]
-
                             text-[48px] lg:text-[64px] xl:text-[87px]
-                            ">
+                        "
+                    >
                         Witness the Magic
                     </h1>
 
@@ -102,7 +120,7 @@ const Banner = () => {
                 </div>
 
                 {/* Buttons */}
-                <div className='flex items-center justify-center gap-[20px]'>
+                <div className="flex items-center justify-center gap-[20px] flex-wrap">
                     <button className="mt-8 px-8 py-4 border border-white rounded-lg text-white font-semibold shadow-lg">
                         Book a Show
                     </button>
@@ -110,10 +128,18 @@ const Banner = () => {
                     <button className="mt-8 px-8 py-4 border border-white rounded-lg text-white font-semibold shadow-lg">
                         Learn More
                     </button>
+
+                    {/* Replay Button */}
+                    <button
+                        onClick={handleReplay}
+                        className="mt-8 px-6 py-4 border border-red-400 rounded-lg text-red-400 font-semibold"
+                    >
+                        Replay Animation
+                    </button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Banner
+export default Banner;

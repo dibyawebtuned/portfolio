@@ -1,11 +1,13 @@
 
+"use client";
+
 import React from 'react'
+
 import Herosection from './sections/Hero'
 import LogoMarquee from './sections/LogoMarquee'
 import Testimonials from './sections/Testimonials'
 import About from './sections/About'
 import Aboutme from './sections/Aboutme'
-import Marquee from '../../test'
 import Services from './sections/Services'
 import CardScene from './component/CardScene'
 import FAQAccordion from './sections/Faq'
@@ -26,7 +28,6 @@ const page = () => {
       {/*  */}
       <HorizontalScrollText />
 
-      {/* <Marquee /> */}
       <CardScene />
       <Services />
       <Testimonials />

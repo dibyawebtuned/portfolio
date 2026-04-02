@@ -72,14 +72,14 @@ export default function HorizontalScrollText() {
                 <div className="container mx-auto">
                     <h3
                         ref={textRef}
-                        className="flex w-max whitespace-nowrap gap-[1vw] pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
+                        className="flex w-max whitespace-nowrap gap-[1vw] pt-[50px] sm:pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
                     >
                         Where Magic Meets Mind, Revealing What the Eyes Cannot See.
                     </h3>
                 </div>
 
-                <div className="max-w-2xl mx-auto">
-                    <p className="text-center">
+                <div className="max-w-full sm:max-w-2xl mx-auto">
+                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]">
                         Attention is everywhere — but true experiences
                         are rare. We create moments that captivate minds
                         and defy explanation.
@@ -87,7 +87,7 @@ export default function HorizontalScrollText() {
 
                     <MagicCards />
 
-                    <p className="text-center">
+                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]">
                         His signature style lies in close-up magic —
                         intimate, interactive, and astonishing.
                         Performing directly at tables, he makes objects
