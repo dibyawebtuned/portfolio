@@ -12,6 +12,9 @@ import FAQAccordion from './sections/Faq'
 import Banner from './sections/Banner'
 import BentoGallery from './sections/Gallery'
 
+// import HorizontalScrollText from '../../test_two'
+import HorizontalScrollText from './sections/ScrollText'
+
 
 const page = () => {
   return (
@@ -19,7 +22,11 @@ const page = () => {
       <Herosection />
       <LogoMarquee />
       <About />
-      <Marquee />
+
+      {/*  */}
+      <HorizontalScrollText />
+
+      {/* <Marquee /> */}
       <CardScene />
       <Services />
       <Testimonials />

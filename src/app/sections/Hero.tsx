@@ -50,10 +50,7 @@ export default function MagicianPortfolio() {
                 <div className="relative w-full">
 
                     {/* IMAGE */}
-                    <div
-                        className="relative w-full max-w-[1440px] h-[750px]"
-                        data-aos="fade-up"
-                    >
+                    <div className="relative w-full max-w-[1440px] h-[750px]" data-aos="fade-up">
                         <Image
                             src={Image_hero}
                             alt="Magician"
@@ -64,10 +61,7 @@ export default function MagicianPortfolio() {
                     </div>
 
                     {/* TEXT */}
-                    <div
-                        className="absolute top-16 z-20"
-                        data-aos="fade-up"
-                    >
+                    <div className="absolute top-16 z-20" data-aos="fade-up">
                         <p className="text-base text-[#F5F5F5] mb-2 max-w-[400px]">
                             I do believe that <br />
                             <span className="text-[#B9B9B9]">
@@ -88,13 +82,30 @@ export default function MagicianPortfolio() {
                     </div>
 
                     {/* FLOATING CARD */}
-                    <div className="absolute right-[-40px] top-[180px] w-[200px] z-30 floating-card">
+                    {/* <div className="absolute right-[40px] top-[200px] w-[190px] z-30 floating-card">
+                        <Image src={Image_card} alt="cards" />
+                    </div> */}
+
+                    <div
+                        className="absolute right-[40px] top-[200px] w-[190px] z-30 floating-card"
+                        style={{
+                            animation: "float 4s ease-in-out infinite",
+                        }}
+                    >
+                        <style>
+                            {`
+                            @keyframes float {
+                            0%, 100% { transform: translateY(0px); }
+                            50% { transform: translateY(-10px); }
+                            }
+                            `}
+                        </style>
                         <Image src={Image_card} alt="cards" />
                     </div>
                 </div>
 
                 {/* RIGHT LIST */}
-                <ul className="absolute top-1/2 right-10 -translate-y-1/2 flex flex-col gap-3 text-right text-xl geist-medium z-40">
+                <ul className="absolute top-22 right-24 -translate-y-1/2 flex flex-col gap-2 text-right text-xl geist-medium z-40 geist">
                     {items.map((item, index) => (
                         <li
                             key={index}
@@ -111,9 +122,7 @@ export default function MagicianPortfolio() {
 
             {/* ================= MOBILE ================= */}
             <div className="lg:hidden relative px-6 pt-5 pb-10 flex flex-col items-center text-center">
-                <p
-                    className="text-sm text-[#F5F5F5] mt-6"
-                    data-aos="fade-up"
+                <p className="text-sm text-[#F5F5F5] mt-6" data-aos="fade-up"
                 >
                     I do believe that <br />
                     <span className="text-[#B9B9B9]">

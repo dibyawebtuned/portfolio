@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { Menu, X } from "lucide-react";
 import Link from 'next/link';
-import Image from 'next/image';
 import Logo_Image from "../../../../public/assets/img/Logo icon SM-01 (1).png";
+import Image_popup from "../../../../public/assets/img/saman_1.png";
 import Marquee from "react-fast-marquee";
 
 import gsap from "gsap";
@@ -19,6 +20,18 @@ const Nav = () => {
     const navRef = useRef<HTMLDivElement>(null);
     const topNavRef = useRef<HTMLDivElement>(null);
     const bottomNavRef = useRef<HTMLDivElement>(null);
+
+    // SCROLL LOCK — prevents background page scroll when modal or mobile menu is open
+    useEffect(() => {
+        if (modalOpen || mobileOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [modalOpen, mobileOpen]);
 
     useEffect(() => {
         const nav = navRef.current;
@@ -76,14 +89,14 @@ const Nav = () => {
                                     onClick={() => setModalOpen(true)}
                                     className="px-6 py-2 border rounded-[27px] cursor-pointer hover:border-[#F13333] hover:text-[#F13333] transition-colors duration-300 ease-in-out"
                                 >
-                                    LET’S TALK
+                                    {`LET'S TALK`}
                                 </button>
                             </div>
                         </div>
 
                         <button
                             onClick={() => setMobileOpen(true)}
-                            className="border p-3 rounded-full cursor-pointer"
+                            className="border p-3 rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
                         >
                             <Menu className="w-6 h-6" />
                         </button>
@@ -141,70 +154,81 @@ const Nav = () => {
                     </Link>
 
                     <button onClick={() => { setModalOpen(true); setMobileOpen(false); }} className="px-8 py-3 border rounded-full">
-                        LET’S TALK
+                        {`LET'S TALK`}
                     </button>
                 </div>
             )}
 
             {/* ================= MODAL ================= */}
             {modalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 sm:p-6 md:p-8">
-                    <div className="bg-white/20 rounded-xl w-full max-w-md sm:max-w-lg md:max-w-xl p-6 sm:p-8 relative shadow-lg">
+                <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
+                    {/* Modal Box */}
+                    <div className="
+                        relative w-full max-w-5xl h-[90vh]
+                        bg-[#0E0E0E] rounded-2xl border border-white/10
+                        flex flex-col md:flex-row
+                        overflow-hidden
+                        transition-all duration-300 ease-in-out
+                        hover:border-[#F13333]/60
+                        hover:scale-[1.02]
+                    ">
                         {/* Close Button */}
                         <button
                             onClick={() => setModalOpen(false)}
-                            className="absolute top-4 right-4 p-2 rounded-full border hover:bg-gray-100 transition"
+                            className="
+                                absolute top-4 right-4 z-10 p-2 rounded-full border border-white/20
+                                text-white/70 hover:bg-[#F13333] hover:text-white hover:border-[#F13333]
+                                cursor-pointer transition-all duration-300 ease-in-out
+                            "
                         >
                             <X className="w-5 h-5" />
                         </button>
 
-                        {/* Modal Title */}
-                        <h2 className="big-shoulders text-2xl sm:text-3xl font-bold mb-4 text-center">LET’S TALK</h2>
+                        {/* Left Image — fixed, does NOT scroll */}
+                        <div className="relative w-full md:w-[45%] h-[200px] md:h-full shrink-0">
+                            <Image src={Image_popup} alt="experience" fill className="object-cover object-center" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        </div>
 
-                        {/* Form */}
-                        <form className="flex flex-col gap-4">
-                            <div className='flex gap-[20px]'>
-                                <input
-                                    type="text"
-                                    placeholder="First Name"
-                                    className="border px-4 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-black"
-                                    required
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Last Name"
-                                    className="border px-4 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-black"
-                                    required
-                                />
+                        {/* Right Panel — this is the ONLY thing that scrolls */}
+                        <div className="flex-1 min-h-0 min-w-0 overflow-y-auto p-4 md:p-6">
+                            {/* Heading */}
+                            <div className="mb-6 text-white">
+                                <h2 className="big-shoulders text-3xl md:text-4xl font-bold leading-tight">
+                                    Book an <span className="text-[#F13333]">Experience</span> <br />
+                                    Your Guests Will Never Forget
+                                </h2>
+                                <p className="text-sm text-white/70 mt-2 max-w-md">
+                                    Looking for a magician for your corporate event? Saman is a professional magician.
+                                </p>
                             </div>
 
-                            <div className='flex gap-[20px]'>
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="border px-4 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-black"
-                                    required
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Phone Number"
-                                    className="border px-4 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-black"
-                                    required
-                                />
-                            </div>
-                            <textarea
-                                placeholder="Message"
-                                className="border px-4 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-black"
-                                rows={4}
-                                required
-                            />
-                            <button
-                                type="submit"
-                                className="bg-black text-white px-4 py-2 rounded w-full hover:bg-gray-800 transition font-semibold"
-                            >
-                                Send
-                            </button>
-                        </form>
+                            {/* Form */}
+                            <form className="flex flex-col gap-4">
+                                <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
+                                    <input type="text" placeholder="Full Name" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none hover:border-[#F13333] focus:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="email" placeholder="Email" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                </div>
+
+                                <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
+                                    <input type="number" placeholder="Phone Number" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="text" placeholder="Event Location" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                </div>
+
+                                <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
+                                    <input type="text" placeholder="Event Day" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="number" placeholder="Estimated Guests" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                </div>
+
+                                <input type="text" placeholder="How did you hear about Saman Maharjan?" className="bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+
+                                <textarea placeholder="Info About Your Event" className="bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" rows={4} required />
+
+                                <button type="submit" className="mt-2 bg-[#F13333] text-white py-3 rounded-md font-semibold hover:bg-[#d92b2b] transition-all duration-300 ease-in-out cursor-pointer">
+                                    Send Inquiry
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}
