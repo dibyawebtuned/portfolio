@@ -100,7 +100,7 @@ const HoverFollowImages = () => {
                                     key={i}
                                     src={imgSrc}
                                     alt={`hover-${i}`}
-                                    width={180} // adjust sizes as needed
+                                    width={180}
                                     height={180}
                                     className="object-cover rounded-lg shadow-lg"
                                 />

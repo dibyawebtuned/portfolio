@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating GSAP Path Landing</title>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        section {
+            padding: 120px 10%;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        .services .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: white;
+        }
+
+        .cta {
+            text-align: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* FLOATING GSAP LAYER */
+        .floating-path {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .main {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .second {
+            left: 10vw;
+            top: 30vh;
+        }
+
+        .third {
+            right: 10vw;
+            top: 50vh;
+        }
+
+        .fourth {
+            left: 20vw;
+            top: 70vh;
+        }
+
+        .fifth {
+            left: 60vw;
+            top: 85vh;
+        }
+
+        .sixth {
+            left: 15vw;
+            top: 100vh;
+        }
+
+        .marker {
+            width: 70px;
+            height: 70px;
+            /* background: rgba(255, 255, 255, 0.08); */
+            border-radius: 10px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            background: url("https://res.cloudinary.com/hsi1fg936/image/fetch/s--wjGD4DZK--/a_auto,c_limit,dpr_auto,f_auto,q_auto,w_1200/https://d2q6ite07t3u1l.cloudfront.net/public/rumchata2025/prod/Uploads/RumChataCoffee.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section style="height: 90vh;">
+        Hero
+    </section>
+
+    <!-- FLOATING GSAP PATH AFTER HERO -->
+    <div class="floating-path">
+        <div class="main">
+            <div class="container second">
+                <div class="marker"></div>
+            </div>
+            <div class="container third">
+                <div class="marker"></div>
+            </div>
+            <div class="container fourth">
+                <div class="marker"></div>
+            </div>
+            <div class="container fifth">
+                <div class="marker"></div>
+            </div>
+            <div class="container sixth">
+                <div class="marker"></div>
+            </div>
+
+            <!-- MOVING BOX START -->
+            <div class="container initial">
+                <div class="box"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about">
+        <h2>About Us</h2>
+        <p>
+            We create modern digital experiences combining design, motion, and technology.
+            Our mission is to build immersive and engaging user interfaces.
+        </p>
+
+        <img src="https://res.cloudinary.com/hsi1fg936/image/fetch/s--wjGD4DZK--/a_auto,c_limit,dpr_auto,f_auto,q_auto,w_1200/https://d2q6ite07t3u1l.cloudfront.net/public/rumchata2025/prod/Uploads/RumChataCoffee.png"
+            alt="">
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>UI/UX Design</h3>
+                <p>Clean, user-focused interfaces designed for conversion.</p>
+            </div>
+            <div class="card">
+                <h3>Web Development</h3>
+                <p>Modern websites built with React, Next.js, and GSAP.</p>
+            </div>
+            <div class="card">
+                <h3>Brand Identity</h3>
+                <p>Strong visuals that communicate your brand story.</p>
+            </div>
+            <div class="card">
+                <h3>Interactive Design</h3>
+                <p>Scroll animations and immersive storytelling.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Let’s Build Something Amazing</h2>
+        <p>Start your next project with us</p>
+        <button>Get Started</button>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+        function createAnimation() {
+            const box = document.querySelector(".box");
+            const containers = gsap.utils.toArray(".container:not(.initial)");
+
+            function getPoints() {
+                const start = box.getBoundingClientRect();
+
+                return containers.map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {
+                        x: r.left + r.width / 2 - (start.left + start.width / 2),
+                        y: r.top + r.height / 2 - (start.top + start.height / 2)
+                    };
+                });
+            }
+
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".about",
+                    start: "top center",
+                    end: "bottom bottom",
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            })
+                .to(".box", {
+                    duration: 1,
+                    ease: "none",
+                    motionPath: {
+                        path: getPoints(),
+                        curviness: 1.5
+                    }
+                });
+        }
+
+        createAnimation();
+        window.addEventListener("resize", () => ScrollTrigger.refresh());
+    </script>
+
+</body>
+
+</html>

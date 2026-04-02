@@ -74,7 +74,7 @@ const Marquee = () => {
 
     return (
         <>
-            <div
+            {/* <div
                 style={{
                     height: "50vh",
                     position: "relative",
@@ -92,6 +92,26 @@ const Marquee = () => {
                     camera={{ position: [0, 0, 15] }}
                 >
                     <ambientLight intensity={0.5} />
+                    <FormingText scrollY={scrollY} />
+                </Canvas>
+            </div> */}
+
+            <div
+                className="relative w-full overflow-hidden"
+                style={{
+                    height: "clamp(300px, 50vh, 700px)",
+                }}
+            >
+                <Canvas
+                    className="absolute inset-0 w-full h-full"
+                    dpr={[1, 2]}
+                    camera={{
+                        position: [0, 0, window.innerWidth < 768 ? 18 : 15],
+                        fov: window.innerWidth < 768 ? 60 : 50,
+                    }}
+                >
+                    <ambientLight intensity={0.5} />
+
                     <FormingText scrollY={scrollY} />
                 </Canvas>
             </div>

@@ -43,8 +43,8 @@ const About = () => {
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: textRef.current,
-                        start: "top 80%", // When top of element hits 80% viewport height
-                        toggleActions: "play none none none", // Play once
+                        start: "top 80%",
+                        toggleActions: "play none none none",
                     },
                 });
             });
