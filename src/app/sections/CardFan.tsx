@@ -84,11 +84,19 @@ export default function CardFanSection() {
         if (!wrap) return;
 
         const isCenter = i === Math.floor(N / 2);
-        const moveX = sc * 440;
-        const angle = fanAngles[i] * ease(sc);
+
+        // Adjust translation and arcs depending on screen size
+        const isMobile = window.innerWidth < 768;
+        const maxMove = isMobile ? window.innerWidth * 0.05 : 440;
+        const moveX = sc * maxMove;
+
+        const angleValue = isMobile ? fanAngles[i] * 0.85 : fanAngles[i];
+        const angle = angleValue * ease(sc);
 
         curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04;
-        const arc = -50 * Math.sin(ease(sc) * Math.PI);
+
+        const arcMax = isMobile ? -25 : -50;
+        const arc = arcMax * Math.sin(ease(sc) * Math.PI);
         curYRef.current[i] += (arc - curYRef.current[i]) * 0.04;
 
         wrap.style.transform = `
@@ -129,20 +137,16 @@ export default function CardFanSection() {
           perspective: "900px",
         }}
       >
-        <div className="relative" style={{ width: 1000, height: 400 }}>
-          <div className="">
+        <div className="relative w-full max-w-[1000px] h-[550px] md:h-[400px]">
+          <div className="absolute inset-0">
             {CARDS.map((card, i) => (
               <div
                 key={i}
                 ref={(el) => {
                   if (el) wrapsRef.current[i] = el;
                 }}
-                className="absolute cursor-pointer"
+                className="absolute cursor-pointer w-[140px] h-[200px] left-1/2 -ml-[70px] bottom-[20px] md:w-[250px] md:h-[350px] md:left-[200px] md:-ml-0 md:bottom-0"
                 style={{
-                  width: 250,
-                  height: 350,
-                  bottom: 0,
-                  left: 200,
                   transformOrigin: "center bottom",
                   opacity: 0,
                 }}
@@ -179,26 +183,27 @@ export default function CardFanSection() {
           {/* Tarot Text */}
           <div
             ref={tarotRef}
-            className="absolute text-white pointer-events-none max-w-[500px]"
+            className="absolute text-white pointer-events-none w-full px-5 md:px-0 md:max-w-[500px] z-10 left-0 top-[20px] text-center md:left-[-90px] md:top-[50%] -translate-y-0 md:-translate-y-1/2 md:text-left"
             style={{
-              left: -90,
-              top: "50%",
-              transform: "translateY(-50%)",
-              fontSize: 18,
-              lineHeight: 1.5,
               opacity: 0,
               transition: "opacity 0.6s ease",
             }}
           >
-            <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
-              The Journey Ahead
+            <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-3 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[40px] md:text-[48px] lg:text-[64px] xl:text-[87px]">
+              The Story
             </h2>
 
-            <p className="geist text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]">
-              The cards reveal hidden truths. Courage and wisdom guide you.
-              Trust your instincts, embrace change, and let your inner light
-              illuminate the path ahead. Challenges may arise, but clarity
-              and insight will lead you to fulfillment.
+            <p className="geist text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px] md:px-0 text-white/80 md:text-white">
+              Saman has been enthralled by magic since 2010. He recalls what he was like as a child.
+              He purchased a few tricks and started practicing them with his family and friends.
+              After meeting a couple in Pokhara in 2013, Saman was asked to perform a stand-up act at
+              their wedding. The reactions to his then-amateurish performance as a magician were astounding,
+              and Saman understood he had the ability to develop his newfound pleasure into something
+              considerably more professional. He has performed as a Magician in Kathmandu for a range
+              of events including corporate events, private parties, weddings, formal dinners, celebrity
+              appearances, trade fairs, and festivals. Elevate your next corporate event with a captivating
+              and thought-provoking performance that blends magic and keynote speaking to inspire and encourage
+              creativity with your audience.
             </p>
           </div>
         </div>

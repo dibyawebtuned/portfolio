@@ -47,13 +47,13 @@ const Faq = () => {
                 <div className="w-[700px] h-[700px] bg-red-600/20 blur-[180px] rounded-full" />
             </div>
 
-            <div className="relative max-w-4xl mx-auto px-6 py-20 flex flex-col gap-12">
+            <div className="relative max-w-[1440px] mx-auto px-[20px] sm:px-[80px] py-20 flex flex-col gap-12">
 
                 {/* HEADER */}
                 <div className="text-center">
                     <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
-                            FAQ
-                        </h1>
+                        FAQ
+                    </h1>
                     <p className="mt-4 text-white/60 max-w-xl mx-auto geist ">
                         Everything you need to know about Saman’s magic
                     </p>
@@ -75,7 +75,7 @@ const Faq = () => {
                                     onClick={() => toggle(index)}
                                     className="w-full flex items-center justify-between px-6 py-5 text-left group"
                                 >
-                                    <span className="big-shoulders text-lg md:text-xl font-medium group-hover:text-red-400 transition">
+                                    <span className="big-shoulders text-lg md:text-xl font-medium group-hover:text-red-400 transition cursor-pointer">
                                         {item.question}
                                     </span>
 

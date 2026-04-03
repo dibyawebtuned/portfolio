@@ -1,45 +1,51 @@
-
 "use client";
 
-import React from 'react'
+import React, { useState } from 'react';
 
-import Herosection from './sections/Hero'
-import LogoMarquee from './sections/LogoMarquee'
-import Testimonials from './sections/Testimonials'
-import About from './sections/About'
-import Aboutme from './sections/Aboutme'
-import Services from './sections/Services'
+import Preloader from './component/layout/preloader';
+
+import Herosection from './sections/Hero';
+import LogoMarquee from './sections/LogoMarquee';
+import Testimonials from './sections/Testimonials';
+import About from './sections/About';
+import Aboutme from './sections/Aboutme';
+import Services from './sections/Services';
 import CardFanSection from './sections/CardFan';
-import FAQAccordion from './sections/Faq'
-// import Banner from './sections/Banner'
-import BentoGallery from './sections/Gallery'
-
-// import HorizontalScrollText from '../../test_two'
-import HorizontalScrollText from './sections/ScrollText'
-
+import FAQAccordion from './sections/Faq';
+import BentoGallery from './sections/Gallery';
+import HorizontalScrollText from './sections/ScrollText';
 import HorizontalGallery from './sections/HorizontalGallery';
 
+const Page = () => {
+  const [loadingDone, setLoadingDone] = useState(false);
 
-const page = () => {
   return (
-    <div>
-      <Herosection />
-      <LogoMarquee />
-      <About />
+    <>
+      {/*  PRELOADER */}
+      {!loadingDone && (
+        <Preloader onComplete={() => setLoadingDone(true)} />
+      )}
 
-      {/*  */}
-      <HorizontalScrollText />
+      {/*  MAIN CONTENT */}
+      <div
+        className={`transition-opacity duration-700 ${loadingDone ? "opacity-100" : "opacity-0"
+          }`}
+      >
+        <Herosection loadingDone={loadingDone} />
+        <LogoMarquee />
+        <About />
 
-      <CardFanSection />
-      <HorizontalGallery />
-      <Services />
-      <Testimonials />
-      <BentoGallery />
-      <FAQAccordion />
-      {/* <Banner /> */}
+        <HorizontalScrollText />
 
-    </div>
-  )
-}
+        <CardFanSection />
+        <HorizontalGallery />
+        <Services />
+        <Testimonials />
+        <BentoGallery />
+        <FAQAccordion />
+      </div>
+    </>
+  );
+};
 
-export default page
+export default Page;

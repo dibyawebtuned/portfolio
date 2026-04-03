@@ -61,7 +61,7 @@ const About = () => {
     };
 
     return (
-        <section className="relative w-full bg-[#0f0f0f] overflow-hidden font-sans text-white">
+        <section className="relative w-full bg-[#0f0f0f] overflow-hidden font-sans text-white" id="about">
             {/* Background Gradient Glow */}
             {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" /> */}
 
@@ -70,18 +70,22 @@ const About = () => {
                 <div className="flex flex-col md:flex-row gap-10">
                     <div className="sm:flex-1">
                         <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
-                            About
+                            The Journey
                         </h1>
                     </div>
 
                     <div className="sm:flex-1">
                         <p ref={textRef} className="geist text-justify sm:text-end text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] max-w-full sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed opacity-0"
                         >
-                            Saman Maharjan was born and raised in Kathmandu, Nepal, where he
-                            began learning magic at the age of eleven. Saman’s unique and
-                            artistic style has dazzled audiences everywhere from small private
-                            parties to large theatrical venues, and he’ll guarantee to keep
-                            you on the edge of your seat.
+                            Saman Maharjan was born and raised in Kathmandu, Nepal,
+                            where he began learning magic at the age of eleven.
+                            Saman’s unique and artistic style has dazzled audiences
+                            everywhere from small private parties to large theatrical
+                            venues, and he’ll guarantee to keep you on the edge of your
+                            seat! He’s been featured on several shows like Daraz Online
+                            Gala, where he appeared on the live show for different celebrities.
+                            In addition to being a mind-blowing entertainer, Saman is also an
+                            interesting, creative, and fun person to meet!
                         </p>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ export default function MagicianPortfolio() {
     }, [])
 
     return (
-        <div className="relative w-full bg-black text-white overflow-hidden">
+        <div className="relative w-full bg-black text-white overflow-hidden" id="home">
             <Nav />
 
             {/* RADIAL GLOW */}

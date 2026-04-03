@@ -41,7 +41,7 @@ const Footer = () => {
                         {/* LINKS */}
                         <div className='flex-4 flex justify-end gap-10 sm:gap-[150px]'>
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Instagram</Link></li>
+                                <li><Link href="https://www.instagram.com/samanmagician?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Instagram</Link></li>
                                 <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>YouTube</Link></li>
                                 <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Tiktok</Link></li>
                             </ul>
