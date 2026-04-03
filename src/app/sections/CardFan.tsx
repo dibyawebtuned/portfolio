@@ -137,7 +137,7 @@ export default function CardFanSection() {
           perspective: "900px",
         }}
       >
-        <div className="relative w-full max-w-[1000px] h-[550px] md:h-[400px]">
+        <div className="relative w-full max-w-[1000px] h-[650px] md:h-[400px]">
           <div className="absolute inset-0">
             {CARDS.map((card, i) => (
               <div
@@ -183,7 +183,7 @@ export default function CardFanSection() {
           {/* Tarot Text */}
           <div
             ref={tarotRef}
-            className="absolute text-white pointer-events-none w-full px-5 md:px-0 md:max-w-[500px] z-10 left-0 top-[20px] text-center md:left-[-90px] md:top-[50%] -translate-y-0 md:-translate-y-1/2 md:text-left"
+            className="absolute text-white pointer-events-none w-full px-5 md:px-0 md:max-w-[500px] z-10 left-0 top-[5px] text-center md:left-[-90px] md:top-[50%] -translate-y-0 md:-translate-y-1/2 md:text-left"
             style={{
               opacity: 0,
               transition: "opacity 0.6s ease",

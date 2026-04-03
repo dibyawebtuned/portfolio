@@ -112,7 +112,7 @@ export default function BentoGallery() {
 
             <div
                 ref={wrapRef}
-                className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+                className="relative w-full h-screen flex items-center justify-center overflow-hidden" id="work"
             >
                 <div
                     ref={galleryRef}

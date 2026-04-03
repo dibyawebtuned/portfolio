@@ -132,16 +132,16 @@ const Nav = () => {
                 <div className="fixed inset-0 bg-black text-white z-50 flex flex-col justify-center items-center space-y-6">
                     <button
                         onClick={() => setMobileOpen(false)}
-                        className="absolute top-4 right-5 sm:right-20 p-3 border rounded-full"
+                        className="absolute top-4 right-5 sm:right-20 p-3 border rounded-full cursor-pointer"
                     >
                         <X className="w-6 h-6" />
                     </button>
 
                     <ul className='flex flex-col gap-[10px] items-center'>
-                        <li><Link href="" className='uppercase text-xl'>Home</Link></li>
+                        <li><Link href="#home" className='uppercase text-xl'>Home</Link></li>
                         <li><Link href="" className='uppercase text-xl'>Services</Link></li>
-                        <li><Link href="" className='uppercase text-xl'>Work</Link></li>
-                        <li><Link href="" className='uppercase text-xl'>Gallery</Link></li>
+                        <li><Link href="#work" className='uppercase text-xl'>Work</Link></li>
+                        {/* <li><Link href="" className='uppercase text-xl'>Gallery</Link></li> */}
                         <li><Link href="" className='uppercase text-xl'>Contact</Link></li>
                     </ul>
 
