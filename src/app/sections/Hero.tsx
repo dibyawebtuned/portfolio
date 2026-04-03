@@ -46,84 +46,93 @@ export default function MagicianPortfolio() {
             </div>
 
             {/* ================= DESKTOP ================= */}
-            <div className="hidden lg:flex relative max-w-[1440px] mx-auto px-[80px] h-screen items-center justify-center">
-                <div className="relative w-full">
+            <div className="hidden lg:flex relative max-w-[1440px] mx-auto px-[40px] sm:px-[80px] min-h-[700px] h-[100vh] max-h-[1080px] items-center justify-center overflow-hidden">
+                <style>
+                    {`
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-10px); }
+                    }
+                    `}
+                </style>
+
+                <div className="relative w-full h-[85vh] min-h-[600px] max-h-[900px] flex items-center">
 
                     {/* IMAGE */}
-                    <div className="relative w-full max-w-[1440px] h-[750px]" data-aos="fade-up">
+                    <div className="absolute inset-0 w-full h-full flex justify-center pointer-events-none" data-aos="fade-up">
                         <Image
                             src={Image_hero}
                             alt="Magician"
                             fill
-                            className="object-contain z-10"
+                            className="object-contain object-bottom z-10"
                             priority
                         />
                     </div>
 
-                    {/* TEXT */}
-                    <div className="absolute top-16 z-20" data-aos="fade-up">
-                        <p className="text-base text-[#F5F5F5] mb-2 max-w-[400px]">
-                            I do believe that <br />
-                            <span className="text-[#B9B9B9]">
-                                magic is a powerful communication <br />
-                                and expression medium.
-                            </span>
-                        </p>
+                    {/* TEXT ALIGNMENT */}
+                    <div className="relative z-20 flex flex-col justify-between h-full w-full py-12" data-aos="fade-up">
+                        {/* Top Text */}
+                        <div className="max-w-[400px]">
+                            <p className="text-base text-[#F5F5F5] leading-relaxed">
+                                I do believe that <br />
+                                <span className="text-[#B9B9B9]">
+                                    magic is a powerful communication <br />
+                                    and expression medium.
+                                </span>
+                            </p>
+                        </div>
 
-                        <div className="mt-6 absolute top-[300px]">
-                            <p className="uppercase text-sm tracking-widest text-[#B9B9B9] mb-2">
+                        {/* Bottom Text */}
+                        <div className="mt-auto pb-4">
+                            <p className="uppercase text-sm xl:text-base tracking-widest text-[#B9B9B9] mb-4">
                                 Magician & Mentalist from Nepal
                             </p>
 
-                            <h1 className="uppercase big-shoulders text-[100px] font-extrabold leading-[1.1] text-[#F0EBE6]">
+                            <h1 className="uppercase big-shoulders text-[90px] xl:text-[110px] 2xl:text-[130px] font-extrabold leading-[0.95] text-[#F0EBE6]">
                                 SAMAN <br /> MAHARJAN
                             </h1>
                         </div>
                     </div>
 
                     {/* FLOATING CARD */}
-                    {/* <div className="absolute right-[40px] top-[200px] w-[190px] z-30 floating-card">
-                        <Image src={Image_card} alt="cards" />
-                    </div> */}
-
                     <div
-                        className="absolute right-[40px] top-[200px] w-[190px] z-30 floating-card"
+                        className="absolute right-[10%] xl:right-[15%] top-[20%] w-[130px] xl:w-[180px] z-30"
                         style={{
                             animation: "float 4s ease-in-out infinite",
                         }}
                     >
-                        <style>
-                            {`
-                            @keyframes float {
-                            0%, 100% { transform: translateY(0px); }
-                            50% { transform: translateY(-10px); }
-                            }
-                            `}
-                        </style>
-                        <Image src={Image_card} alt="cards" />
+                        <Image src={Image_card} alt="cards" className="w-full h-auto" />
                     </div>
-                </div>
 
-                {/* RIGHT LIST */}
-                <ul className="absolute top-22 right-24 -translate-y-1/2 flex flex-col gap-2 text-right text-xl geist-medium z-40 geist">
-                    {items.map((item, index) => (
-                        <li
-                            key={index}
-                            className={`transition-all duration-500 ${index === activeIndex
-                                ? "opacity-100 translate-x-0 text-[#F0EBE6]"
-                                : "opacity-70 translate-x-4 text-[#817F7F]"
-                                }`}
-                        >
-                            {item}
-                        </li>
-                    ))}
-                </ul>
+                    {/* RIGHT LIST */}
+                    <ul className="absolute top-[10px] -right-4 xl:right-[20px] flex flex-col gap-3 xl:gap-4 text-right text-lg xl:text-xl z-40 geist font-medium">
+                        {items.map((item, index) => (
+                            <li
+                                key={index}
+                                className={`transition-all duration-500 ${index === activeIndex
+                                    ? "opacity-100 translate-x-0 text-[#F0EBE6]"
+                                    : "opacity-70 translate-x-4 text-[#817F7F]"
+                                    }`}
+                            >
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
 
-            {/* ================= MOBILE ================= */}
-            <div className="lg:hidden relative px-6 pt-5 pb-10 flex flex-col items-center text-center">
-                <p className="text-sm text-[#F5F5F5] mt-6" data-aos="fade-up"
-                >
+            {/* ================= MOBILE & TABLET ================= */}
+            <div className="lg:hidden relative px-6 md:px-12 pt-[100px] pb-12 flex flex-col items-center text-center min-h-[100svh] justify-center overflow-hidden">
+                <style>
+                    {`
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-10px); }
+                    }
+                    `}
+                </style>
+
+                <p className="text-sm md:text-base text-[#F5F5F5] mb-8 md:mb-12 max-w-[400px] z-20" data-aos="fade-up">
                     I do believe that <br />
                     <span className="text-[#B9B9B9]">
                         magic is a powerful communication <br />
@@ -131,35 +140,38 @@ export default function MagicianPortfolio() {
                     </span>
                 </p>
 
-                {/* IMAGE */}
-                <div
-                    className="relative w-full max-w-[520px] h-[300px]"
-                    data-aos="fade-up"
-                >
+                {/* IMAGE & FLOATING ASSETS CONTAINER */}
+                <div className="relative w-full max-w-[450px] md:max-w-[600px] h-[45vh] min-h-[350px] mb-8 z-10" data-aos="fade-up">
                     <Image
                         src={Image_hero}
                         alt="Magician"
                         fill
-                        className="object-contain"
+                        className="object-contain object-bottom"
                         priority
                     />
+
+                    {/* FLOATING CARD */}
+                    <div
+                        className="absolute right-0 md:right-[10%] top-[15%] w-[90px] md:w-[130px]"
+                        style={{ animation: "float 4s ease-in-out infinite" }}
+                    >
+                        <Image src={Image_card} alt="cards" className="w-full h-auto" />
+                    </div>
                 </div>
 
-                {/* FLOATING CARD */}
-                <div className="absolute right-4 top-[120px] w-[100px] floating-card">
-                    <Image src={Image_card} alt="cards" />
+                {/* BOTTOM TEXT */}
+                <div className="flex flex-col items-center justify-end z-20 mt-auto">
+                    <p className="uppercase text-xs md:text-sm tracking-widest text-[#B9B9B9] mb-3 md:mb-4">
+                        Magician & Mentalist from Nepal
+                    </p>
+
+                    <h1
+                        className="uppercase big-shoulders text-[65px] md:text-[90px] font-extrabold leading-[0.95] text-[#F0EBE6]"
+                        data-aos="fade-up"
+                    >
+                        SAMAN <br /> MAHARJAN
+                    </h1>
                 </div>
-
-                <p className="uppercase text-xs tracking-widest text-[#B9B9B9] mt-6">
-                    Magician & Mentalist from Nepal
-                </p>
-
-                <h1
-                    className="uppercase big-shoulders text-6xl font-extrabold leading-tight text-[#F0EBE6] mt-2"
-                    data-aos="fade-up"
-                >
-                    SAMAN <br /> MAHARJAN
-                </h1>
             </div>
         </div>
     )

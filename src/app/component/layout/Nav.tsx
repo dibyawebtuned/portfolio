@@ -35,11 +35,14 @@ const Nav = () => {
     useEffect(() => {
         if (modalOpen || mobileOpen) {
             document.body.style.overflow = "hidden";
+            document.documentElement.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
+            document.documentElement.style.overflow = "";
         }
         return () => {
             document.body.style.overflow = "";
+            document.documentElement.style.overflow = "";
         };
     }, [modalOpen, mobileOpen]);
 
@@ -201,7 +204,7 @@ const Nav = () => {
                         </div>
 
                         {/* Right Panel — this is the ONLY thing that scrolls */}
-                        <div className="flex-1 min-h-0 min-w-0 overflow-y-auto p-4 md:p-6 flex flex-col justify-center">
+                        <div className="flex-1 min-h-0 min-w-0 p-4 md:p-6 overscroll-contain touch-pan-y">
                             {/* Heading */}
                             <div className="mb-6 text-white">
                                 <h2 className="big-shoulders text-3xl md:text-4xl font-bold leading-tight">
@@ -216,25 +219,25 @@ const Nav = () => {
                             {/* Form */}
                             <form className="flex flex-col gap-4">
                                 <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
-                                    <input type="text" placeholder="Full Name" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none hover:border-[#F13333] focus:border-[#F13333] transition-colors duration-300 ease-in-out" required />
-                                    <input type="email" placeholder="Email" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="text" placeholder="Full Name" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none hover:border-[#F13333] focus:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="email" placeholder="Email" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
                                 </div>
 
                                 <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
-                                    <input type="number" placeholder="Phone Number" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
-                                    <input type="text" placeholder="Event Location" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="number" placeholder="Phone Number" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="text" placeholder="Event Location" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
                                 </div>
 
                                 <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
-                                    <input type="text" placeholder="Event Day" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
-                                    <input type="number" placeholder="Estimated Guests" className="flex-1 bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="text" placeholder="Event Day" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                    <input type="number" placeholder="Estimated Guests" className="flex-1 bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
                                 </div>
 
-                                <input type="text" placeholder="How did you hear about Saman Maharjan?" className="bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
+                                <input type="text" placeholder="How did you hear about Saman Maharjan?" className="bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" required />
 
-                                <textarea placeholder="Info About Your Event" className="bg-white/5 border border-white/10 px-4 py-2 rounded-md text-sm focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" rows={4} required />
+                                <textarea placeholder="Info About Your Event" className="bg-white/5 border border-white/10 px-4 py-1.5 rounded-md text-[13px] focus:outline-none focus:border-[#F13333] hover:border-[#F13333] transition-colors duration-300 ease-in-out" rows={4} required />
 
-                                <button type="submit" className="mt-2 bg-[#F13333] text-white py-3 rounded-md font-semibold hover:bg-[#d92b2b] transition-all duration-300 ease-in-out cursor-pointer">
+                                <button type="submit" className="geist mt-2 bg-[#F13333] text-white py-2 rounded-md font-medium text-[14px] hover:bg-[#d92b2b] transition-all duration-300 ease-in-out cursor-pointer">
                                     Send Inquiry
                                 </button>
                             </form>

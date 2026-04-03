@@ -86,7 +86,7 @@ const HoverFollowImages = () => {
     ];
 
     return (
-        <div className="bg-[#0f0f0f] min-h-screen relative overflow-hidden" id="services">
+        <div className="bg-[#0f0f0f] h-auto relative overflow-hidden" id="services">
             <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
                 {/* Header */}
                 <div className="text-center mb-16">

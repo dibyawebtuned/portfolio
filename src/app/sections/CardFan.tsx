@@ -85,25 +85,26 @@ export default function CardFanSection() {
 
         const isCenter = i === Math.floor(N / 2);
 
-        // Adjust translation and arcs depending on screen size
-        const isMobile = window.innerWidth < 768;
-        const maxMove = isMobile ? window.innerWidth * 0.05 : 440;
+        // < 1280 = mobile + tablet + iPad Pro all use stacked column layout
+        // ≥ 1280 = desktop side-by-side layout
+        const isDesktop = window.innerWidth >= 1280;
+        const maxMove = isDesktop ? 440 : window.innerWidth * 0.05;
         const moveX = sc * maxMove;
 
-        const angleValue = isMobile ? fanAngles[i] * 0.85 : fanAngles[i];
+        const angleValue = isDesktop ? fanAngles[i] : fanAngles[i] * 0.85;
         const angle = angleValue * ease(sc);
 
         curAngleRef.current[i] += (angle - curAngleRef.current[i]) * 0.04;
 
-        const arcMax = isMobile ? -25 : -50;
+        const arcMax = isDesktop ? -50 : -25;
         const arc = arcMax * Math.sin(ease(sc) * Math.PI);
         curYRef.current[i] += (arc - curYRef.current[i]) * 0.04;
 
         wrap.style.transform = `
-        translateX(${moveX}px)
-        rotateZ(${curAngleRef.current[i]}deg)
-        translateY(${curYRef.current[i]}px)
-      `;
+          translateX(${moveX}px)
+          rotateZ(${curAngleRef.current[i]}deg)
+          translateY(${curYRef.current[i]}px)
+        `;
 
         wrap.style.opacity = isCenter ? "1" : String(Math.min(1, sc * 1.5));
       });
@@ -137,7 +138,11 @@ export default function CardFanSection() {
           perspective: "900px",
         }}
       >
-        <div className="relative w-full max-w-[1000px] h-[650px] md:h-[400px]">
+        {/*
+          xl: = 1280px+ → desktop side-by-side, shorter container
+          below xl:     → stacked column (mobile, tablet, iPad Pro), taller container
+        */}
+        <div className="relative w-full max-w-[1000px] h-[650px] xl:h-[400px]">
           <div className="absolute inset-0">
             {CARDS.map((card, i) => (
               <div
@@ -145,20 +150,14 @@ export default function CardFanSection() {
                 ref={(el) => {
                   if (el) wrapsRef.current[i] = el;
                 }}
-                className="absolute cursor-pointer w-[140px] h-[200px] left-1/2 -ml-[70px] bottom-[20px] md:w-[250px] md:h-[350px] md:left-[200px] md:-ml-0 md:bottom-0"
+                className="absolute cursor-pointer w-[140px] h-[200px] left-1/2 -ml-[70px] bottom-[20px] xl:w-[250px] xl:h-[350px] xl:left-[200px] xl:-ml-0 xl:bottom-0"
                 style={{
                   transformOrigin: "center bottom",
                   opacity: 0,
                 }}
               >
                 {/* IMPORTANT: relative required for next/image fill */}
-                <div
-                  className="w-full h-full rounded-2xl overflow-hidden relative"
-                  style={{
-                    // boxShadow: "0 25px 60px rgba(0,0,0,0.7)",
-                    // background: "#111",
-                  }}
-                >
+                <div className="w-full h-full rounded-2xl overflow-hidden relative">
                   {typeof card.img === "string" ? (
                     <img
                       src={card.img}
@@ -170,7 +169,7 @@ export default function CardFanSection() {
                       src={card.img}
                       alt={`Card ${i + 1}`}
                       fill
-                      sizes="250px"
+                      sizes="(max-width: 1279px) 140px, 250px"
                       className="object-cover rounded-2xl"
                       priority={i === 0}
                     />
@@ -183,17 +182,17 @@ export default function CardFanSection() {
           {/* Tarot Text */}
           <div
             ref={tarotRef}
-            className="absolute text-white pointer-events-none w-full px-5 md:px-0 md:max-w-[500px] z-10 left-0 top-[5px] text-center md:left-[-90px] md:top-[50%] -translate-y-0 md:-translate-y-1/2 md:text-left"
+            className="absolute text-white pointer-events-none w-full px-5 xl:px-0 xl:max-w-[500px] z-10 left-0 top-[5px] text-center xl:left-[-90px] xl:top-[50%] -translate-y-0 xl:-translate-y-1/2 xl:text-left"
             style={{
               opacity: 0,
               transition: "opacity 0.6s ease",
             }}
           >
-            <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-3 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[40px] md:text-[48px] lg:text-[64px] xl:text-[87px]">
+            <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-3 sm:mb-5 xl:mb-6 leading-tight tracking-[0.02em] text-[40px] md:text-[48px] xl:text-[64px] 2xl:text-[87px]">
               The Story
             </h2>
 
-            <p className="geist text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px] md:px-0 text-white/80 md:text-white">
+            <p className="geist text-[13px] sm:text-[14px] md:text-[16px] leading-relaxed px-[15px] xl:px-0 text-white/80 xl:text-white">
               Saman has been enthralled by magic since 2010. He recalls what he was like as a child.
               He purchased a few tricks and started practicing them with his family and friends.
               After meeting a couple in Pokhara in 2013, Saman was asked to perform a stand-up act at
