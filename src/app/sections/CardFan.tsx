@@ -133,7 +133,7 @@ export default function CardFanSection() {
         ref={outerRef}
         className="relative w-full overflow-hidden flex items-center justify-center bg-[#0f0f0f]"
         style={{
-          height: "85svh",
+          height: "100svh",
           background: "#0f0f0f",
           perspective: "900px",
         }}
