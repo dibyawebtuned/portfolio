@@ -117,7 +117,7 @@ const Nav = () => {
                 </div>
 
                 {/* ================= BOTTOM NAV ================= */}
-                <div ref={bottomNavRef}
+                {/* <div ref={bottomNavRef}
                     className="fixed bottom-6 left-1/2 -translate-x-1/2 
                     flex items-center justify-center gap-8 
                     bg-white/30 backdrop-blur-md shadow-xl 
@@ -136,6 +136,67 @@ const Nav = () => {
                     <div className='flex items-center gap-6'>
                         <Link href="#work" onClick={(e) => handleScroll(e, 'work')} className="text-sm">Work</Link>
                         <button onClick={() => setModalOpen(true)} className="text-sm">Contact</button>
+                    </div>
+                </div> */}
+
+
+                <div
+                    ref={bottomNavRef}
+                    className="
+                    fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2
+                    flex items-center justify-center
+                    gap-4 sm:gap-6 md:gap-8
+                    bg-white/30 backdrop-blur-md shadow-xl
+                    rounded-full
+                    px-4 sm:px-6 md:px-8
+                    py-2 sm:py-3
+                    z-50
+                    w-fit max-w-[95%]
+                    "
+                >
+                    {/* LEFT */}
+                    <div className="flex items-center gap-3 sm:gap-5 md:gap-6">
+                        <Link
+                            href="#home"
+                            onClick={(e) => handleScroll(e, "home")}
+                            className="text-xs sm:text-sm"
+                        >
+                            Home
+                        </Link>
+
+                        <Link
+                            href="#about"
+                            onClick={(e) => handleScroll(e, "about")}
+                            className="text-xs sm:text-sm"
+                        >
+                            About
+                        </Link>
+                    </div>
+
+                    {/* CENTER LOGO */}
+                    <Link
+                        href="/"
+                        className="flex-shrink-0 w-[32px] h-[32px] sm:w-[40px] sm:h-[40px]"
+                    >
+                        <Image src={Logo_Image} alt="Logo" className="w-full h-full" />
+                    </Link>
+
+                    {/* RIGHT */}
+                    <div className="flex items-center gap-3 sm:gap-5 md:gap-6">
+                        <Link
+                            href="#work"
+                            onClick={(e) => handleScroll(e, "work")}
+                            className="text-xs sm:text-sm"
+                        >
+                            Work
+                        </Link>
+
+                        <button
+                            onClick={() => setModalOpen(true)}
+                            className="text-xs sm:text-sm"
+                        >
+                            Contact
+                        </button>
                     </div>
                 </div>
             </div>

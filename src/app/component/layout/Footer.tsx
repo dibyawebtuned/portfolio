@@ -103,7 +103,6 @@ const Footer = () => {
                             <span>KEEP LOVING MAGIC</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </footer>
