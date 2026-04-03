@@ -78,12 +78,12 @@ export default function HorizontalScrollText() {
         <>
             <section
                 ref={wrapperRef}
-                className="overflow-hidden h-auto flex flex-col items-center bg-[#000000]"
+                className="overflow-hidden h-auto flex flex-col items-center bg-[#000000] text-[#F0EBE6]"
             >
                 <div className="container mx-auto">
                     <h3
                         ref={textRef}
-                        className="big-shoulders flex w-max whitespace-nowrap gap-[1vw] pt-[50px] sm:pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
+                        className="big-shoulders w-max whitespace-nowrap pt-[50px] sm:pt-[70px] pl-[50vw] font-semibold leading-tight text-[clamp(2rem,10vw,12rem)]"
                     >
                         Where Magic Meets Mind, Revealing What the Eyes Cannot See.
                     </h3>
