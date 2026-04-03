@@ -9,7 +9,7 @@ import Testimonials from './sections/Testimonials'
 import About from './sections/About'
 import Aboutme from './sections/Aboutme'
 import Services from './sections/Services'
-import CardScene from './component/CardScene'
+import CardFanSection from './sections/CardFan';
 import FAQAccordion from './sections/Faq'
 import Banner from './sections/Banner'
 import BentoGallery from './sections/Gallery'
@@ -17,7 +17,7 @@ import BentoGallery from './sections/Gallery'
 // import HorizontalScrollText from '../../test_two'
 import HorizontalScrollText from './sections/ScrollText'
 
-import HorizontalGallery from '../../test';
+import HorizontalGallery from './sections/HorizontalGallery';
 
 
 const page = () => {
@@ -30,7 +30,7 @@ const page = () => {
       {/*  */}
       <HorizontalScrollText />
 
-      <CardScene />
+      <CardFanSection />
       <HorizontalGallery />
       <Services />
       <Testimonials />
