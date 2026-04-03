@@ -138,8 +138,6 @@ const Nav = () => {
                         <button onClick={() => setModalOpen(true)} className="text-sm">Contact</button>
                     </div>
                 </div> */}
-
-
                 <div
                     ref={bottomNavRef}
                     className="
@@ -215,7 +213,6 @@ const Nav = () => {
                         <li><Link href="#home" onClick={(e) => handleScroll(e, 'home')} className='uppercase text-xl'>Home</Link></li>
                         <li><Link href="#services" onClick={(e) => handleScroll(e, 'services')} className='uppercase text-xl'>Services</Link></li>
                         <li><Link href="#work" onClick={(e) => handleScroll(e, 'work')} className='uppercase text-xl'>Work</Link></li>
-                        {/* <li><Link href="#gallery" onClick={(e) => handleScroll(e, 'gallery')} className='uppercase text-xl'>Gallery</Link></li> */}
                         <li><Link href="#contact" onClick={(e) => { e.preventDefault(); setModalOpen(true); setMobileOpen(false); }} className='uppercase text-xl'>Contact</Link></li>
                     </ul>
 

@@ -98,7 +98,6 @@ const Footer = () => {
 
                         {/* ================= BOTTOM ================= */}
                         <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs sm:text-[16px] opacity-70 geist'>
-                            {/* <span>© 2026 SAMAN MAHARJAN. ALL RIGHTS RESERVED.</span> */}
                             <span>© {new Date().getFullYear()} SAMAN MAHARJAN. ALL RIGHTS RESERVED.</span>
                             <span>KEEP LOVING MAGIC</span>
                         </div>
