@@ -147,14 +147,14 @@ export default function BentoGallery() {
                 </div>
             </div>
 
-            <div className="px-20 py-8">
-                {/* <h2 className="text-2xl font-semibold mb-4">Here is some content</h2> */}
-                {/* {Array.from({ length: 1 }).map((_, i) => (
+            {/* <div className="px-20 py-8">
+                <h2 className="text-2xl font-semibold mb-4">Here is some content</h2>
+                {Array.from({ length: 1 }).map((_, i) => (
                     <p key={i} className="text-xl mb-4 leading-relaxed">
                         Saman has been enthralled by magic since 2010. He recalls what he was like as a child. He purchased a few tricks and started practicing them with his family and friends. After meeting a couple in Pokhara in 2013, Saman was asked to perform a stand-up act at their wedding. The reactions to his then-amateurish performance as a magician were astounding, and Saman understood he had the ability to develop his newfound pleasure into something considerably more professional. He has performed as a Magician in Kathmandu for a range of events including corporate events, private parties, weddings, formal dinners, celebrity appearances, trade fairs, and festivals. Elevate your next corporate event with a captivating and thought-provoking performance that blends magic and keynote speaking to inspire and encourage creativity with your audience.
                     </p>
-                ))} */}
-            </div>
+                ))}
+            </div> */}
         </>
     );
 }

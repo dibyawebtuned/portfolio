@@ -159,7 +159,7 @@ const Nav = () => {
                         BASED IN <span className="text-red-600">KATHMANDU</span>
                     </span>
 
-                    <Link href="#showreel" onClick={() => setMobileOpen(false)} className="px-8 py-3 border rounded-full">
+                    <Link href="https://weeztix.shop/6e4keua6" onClick={() => setMobileOpen(false)} className="px-8 py-3 border rounded-full" target="_blank">
                         BUY TICKETS
                     </Link>
 
