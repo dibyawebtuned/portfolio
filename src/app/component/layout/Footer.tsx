@@ -42,7 +42,7 @@ const Footer = () => {
                         <div className='flex-4 flex sm:justify-end gap-10 sm:gap-[150px]'>
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
                                 <li><Link href="https://www.instagram.com/samanmagician?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Instagram</Link></li>
-                                <li><Link href="www.youtube.com/@samanmaharjan4780" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">YouTube</Link></li>
+                                <li><Link href="https://www.youtube.com/@samanmaharjan4780" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">YouTube</Link></li>
                                 <li><Link href="https://www.tiktok.com/@saman_maharjan_?_r=1&_t=ZS-95DrkxaftuG" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">Tiktok</Link></li>
                             </ul>
 
