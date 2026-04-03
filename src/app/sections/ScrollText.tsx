@@ -78,7 +78,7 @@ export default function HorizontalScrollText() {
         <>
             <section
                 ref={wrapperRef}
-                className="overflow-hidden h-auto flex flex-col items-center bg-[#000000]! text-[#F0EBE6]"
+                className="overflow-hidden min-h-screen flex flex-col items-center bg-[#000000] text-[#F0EBE6]"
             >
                 <div className="container mx-auto">
                     <h3
