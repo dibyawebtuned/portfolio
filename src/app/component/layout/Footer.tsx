@@ -43,13 +43,13 @@ const Footer = () => {
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
                                 <li><Link href="https://www.instagram.com/samanmagician?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Instagram</Link></li>
                                 <li><Link href="www.youtube.com/@samanmaharjan4780" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">YouTube</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">Tiktok</Link></li>
+                                <li><Link href="https://www.tiktok.com/@saman_maharjan_?_r=1&_t=ZS-95DrkxaftuG" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">Tiktok</Link></li>
                             </ul>
 
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
                                 <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Contact</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Privacy Policy</Link></li>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Terms of Use</Link></li>
+                                <span><span className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Privacy Policy</span></span>
+                                <span><span className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Terms of Use</span></span>
                             </ul>
                         </div>
                     </div>

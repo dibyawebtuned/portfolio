@@ -4,7 +4,18 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 
+import "aos/dist/aos.css";
+import AOS from "aos";
+
 const About = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
     // Reference for the text to animate
     const textRef = useRef<HTMLParagraphElement | null>(null);
 
@@ -68,7 +79,7 @@ const About = () => {
             {/* Content Container */}
             <div className="relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
                 <div className="flex flex-col md:flex-row gap-10">
-                    <div className="sm:flex-1">
+                    <div className="sm:flex-1" data-aos="fade-right">
                         <h1 className="big-shoulders text-[#F0EBE6] text-center sm:text-start font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
                             The Journey
                         </h1>
@@ -91,7 +102,12 @@ const About = () => {
                 </div>
 
                 {/* Video Section */}
-                <div className="mt-16 flex justify-center rounded-[20px] overflow-hidden">
+                <div className="mt-16 flex justify-center rounded-[20px] overflow-hidden"
+                    data-aos="fade-up"
+                    data-aos-duration="1200"
+                    data-aos-delay="300"
+                    data-aos-easing="ease-out-cubic"
+                    data-aos-once="true">
                     <video
                         src="/assets/img/bannervideo.mp4"
                         autoPlay

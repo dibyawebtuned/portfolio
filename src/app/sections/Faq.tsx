@@ -1,7 +1,10 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from "lucide-react"
+
+import "aos/dist/aos.css";
+import AOS from "aos";
 
 type FAQItem = {
     question: string;
@@ -37,11 +40,21 @@ const faqData: FAQItem[] = [
 ];
 
 const Faq = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     const toggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+
 
     return (
         <div className="relative w-full bg-black text-white overflow-hidden">
@@ -55,7 +68,8 @@ const Faq = () => {
 
                 {/* HEADER */}
                 <div className="text-center">
-                    <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
+                    <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]"
+                        data-aos="fade-up">
                         FAQ
                     </h1>
                     <p className="mt-4 text-white/60 max-w-xl mx-auto geist ">
@@ -63,6 +77,7 @@ const Faq = () => {
                     </p>
                 </div>
 
+                {/* FAQ LIST */}
                 {/* FAQ LIST */}
                 <div className="flex flex-col gap-4">
                     {faqData.map((item, index) => {
@@ -72,6 +87,10 @@ const Faq = () => {
                             <motion.div
                                 key={index}
                                 layout
+                                data-aos="fade-up"
+                                data-aos-delay={index * 100} // stagger effect
+                                data-aos-duration="800"
+                                data-aos-easing="ease-out-cubic"
                                 className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden"
                             >
                                 {/* QUESTION */}

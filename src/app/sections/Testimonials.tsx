@@ -1,9 +1,12 @@
 "use client"
 
-import React from 'react'
+import { useEffect, useRef } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Autoplay } from "swiper/modules"
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
+
+import "aos/dist/aos.css";
+import AOS from "aos";
 
 import "swiper/css"
 import "swiper/css/navigation"
@@ -30,6 +33,13 @@ const testimonials = [
 
 
 const Testimonials = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
     return (
         <div className="relative w-full bg-black overflow-hidden font-sans text-white">
             {/* INLINE STYLES (No external CSS needed) */}
@@ -71,11 +81,17 @@ const Testimonials = () => {
             <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px] flex flex-col gap-[50px] z-10'>
                 {/* ========== HEADER ========== */}
                 <div className="flex flex-col items-center text-center px-4">
-                    <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
+                    <h1 className="big-shoulders text-[#F0EBE6] font-bold tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]"
+                        data-aos="fade-up">
                         Testimonials
                     </h1>
 
-                    <p className="mt-4 max-w-md sm:max-w-xl lg:max-w-2xl text-sm sm:text-base text-center opacity-80">
+                    <p className="max-w-md sm:max-w-xl lg:max-w-2xl text-sm sm:text-base text-center opacity-80"
+                        data-aos="fade-up"
+                        data-aos-duration="800"
+                        data-aos-delay="300"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-once="true">
                         Audience and Client Testimonials That Showcase Real Experiences and the Value We Bring to Every Event
                     </p>
                 </div>

@@ -5,7 +5,18 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import MagicCards from "../component/UI/MagicCards";
 
+import "aos/dist/aos.css";
+import AOS from "aos";
+
 export default function HorizontalScrollText() {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const textRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -79,7 +90,12 @@ export default function HorizontalScrollText() {
                 </div>
 
                 <div className="max-w-full sm:max-w-2xl mx-auto">
-                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]">
+                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]"
+                        data-aos="fade-up"
+                        data-aos-duration="800"
+                        data-aos-delay="300"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-once="true">
                         Attention is everywhere — but true experiences
                         are rare. We create moments that captivate minds
                         and defy explanation.
@@ -87,7 +103,12 @@ export default function HorizontalScrollText() {
 
                     <MagicCards />
 
-                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px] mb-[50px] sm:mb-[100px]">
+                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px] mb-[50px] sm:mb-[100px]"
+                        data-aos="fade-up"
+                        data-aos-duration="1200"
+                        data-aos-delay="300"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-once="true">
                         His signature style lies in close-up magic —
                         intimate, interactive, and astonishing.
                         Performing directly at tables, he makes objects

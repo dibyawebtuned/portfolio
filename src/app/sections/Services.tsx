@@ -6,6 +6,9 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+import "aos/dist/aos.css";
+import AOS from "aos";
+
 // Import local images
 import Image1 from "../../../public/assets/img/saman_1.png";
 import Image2 from "../../../public/assets/img/saman_2.png";
@@ -14,6 +17,14 @@ import Image4 from "../../../public/assets/img/saman_4.png";
 // Add more if needed
 
 const HoverFollowImages = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
     const containerRefs = useRef<HTMLLIElement[]>([]);
 
     useEffect(() => {
@@ -79,10 +90,16 @@ const HoverFollowImages = () => {
             <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h1 className="big-shoulders font-bold text-[48px] lg:text-[64px] xl:text-[87px] text-[#F0EBE6]">
+                    <h1 className="big-shoulders font-bold text-[48px] lg:text-[64px] xl:text-[87px] text-[#F0EBE6]"
+                        data-aos="fade-up">
                         What I Do
                     </h1>
-                    <p className="mt-4 mx-auto text-sm sm:text-base md:text-lg lg:text-xl max-w-xl sm:max-w-2xl leading-relaxed text-[#F0EBE6] opacity-80">
+                    <p className="geist text-center sm:text-end text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] max-w-full sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed mx-auto text-sm sm:text-base md:text-lg lg:text-xl max-w-xl sm:max-w-2xl leading-relaxed text-[#F0EBE6] opacity-80"
+                        data-aos="fade-up"
+                        data-aos-duration="1200"
+                        data-aos-delay="300"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-once="true">
                         Saman’s unique and artistic style has dazzled audiences everywhere from small private parties to large theatrical venues, and he’ll guarantee to keep you on the edge of your seat.
                     </p>
                 </div>
@@ -92,7 +109,7 @@ const HoverFollowImages = () => {
                     {items.map((item, index) => (
                         <li
                             key={index}
-                            className="relative border-b border-gray-700 pb-8 sm:pb-12 cursor-pointer"
+                            className="relative border-b border-gray-700 pb-4 sm:pb-8 cursor-pointer"
                             ref={(el) => { if (el) containerRefs.current[index] = el; }}
                         >
                             {/* Hover Images */}
@@ -123,7 +140,7 @@ const HoverFollowImages = () => {
 
                                 {/* Right Description + Link */}
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 md:gap-8">
-                                    <p className="text-sm sm:text-base md:text-lg text-[#F0EBE6] opacity-90 max-w-md">
+                                    <p className="text-sm sm:text-base md:text-md text-[#F0EBE6] opacity-90 max-w-md">
                                         {item.desc}
                                     </p>
                                     <Link href="#" className="mt-2 sm:mt-0">

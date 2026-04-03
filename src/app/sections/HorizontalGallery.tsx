@@ -6,6 +6,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Clock, UserCheck, Handshake, Users } from "lucide-react";
 
+import "aos/dist/aos.css";
+import AOS from "aos";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const items = [
@@ -36,6 +39,14 @@ const items = [
 ];
 
 export default function HorizontalGallery() {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
     const sectionRef = useRef<HTMLDivElement>(null);
     const stripRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +84,8 @@ export default function HorizontalGallery() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,_#F13333_0%,_transparent_70%)] opacity-40 pointer-events-none" />
 
             <section ref={sectionRef} className="relative py-16">
-                <h1 className="big-shoulders text-center text-[#F0EBE6] font-bold mb-12 leading-tight tracking-[0.02em] text-[48px] sm:text-[64px] lg:text-[87px]">
+                <h1 className="big-shoulders text-center text-[#F0EBE6] font-bold mb-12 leading-tight tracking-[0.02em] text-[48px] sm:text-[64px] lg:text-[87px]"
+                    data-aos="fade-up">
                     How am I?
                 </h1>
 
