@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown } from "lucide-react"
 
 type FAQItem = {
     question: string;
@@ -13,25 +14,21 @@ const faqData: FAQItem[] = [
         answer:
             "Saman has been passionate about magic since 2010. He began practicing as a child and has performed professionally since 2013.",
     },
-
     {
         question: "What types of events does Saman perform at?",
         answer: "Saman has performed at a variety of events, including birthday parties, weddings, formal dinners, celebrity appearances, trade fairs, and festivals.",
     },
-
     {
         question: "What is Saman’s specialty in magic?",
-        answer: "Saman excels in close-up magic, performing tricks right at the tables where guests can see items vanish and reappear in unexpected places. He often works with cards, cash, jewelry, strings, and even borrowed phones.",
+        answer: "Saman excels in close-up magic, performing tricks right at the tables where guests can see items vanish and reappear in unexpected places.",
     },
-
     {
         question: "Does Saman perform mentalism?",
-        answer: "Yes, Saman performs mentalism tricks as well. His focus is on entertaining and surprising the audience rather than influencing or persuading them.",
+        answer: "Yes, Saman performs mentalism tricks as well. His focus is on entertaining and surprising the audience.",
     },
-
     {
         question: "What makes Saman’s magic unique?",
-        answer: "Saman’s magic combines technical skill with personal interaction, creating moments of wonder that happen right in the hands of the audience. His performances are engaging, entertaining, and unforgettable.",
+        answer: "Saman’s magic combines technical skill with personal interaction, creating unforgettable moments.",
     },
 ];
 
@@ -43,54 +40,76 @@ const Faq = () => {
     };
 
     return (
-        <div className="relative w-full bg-black overflow-hidden font-sans text-white">
-            {/* Background Gradient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_#4a0d0d_0%,_transparent_70%)] opacity-80 pointer-events-none" />
+        <div className="relative w-full bg-black text-white overflow-hidden">
 
-            <div className='relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px] flex flex-col gap-[40px]'>
-                {/* ========== HEADER ========== */}
-                <div className='flex flex-col items-center text-center px-4'>
-                    <h1 className="big-shoulders big-shoulders-bold leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px] text-[#F0EBE6]">
-                        FAQ
-                    </h1>
+            {/* Soft background glow */}
+            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                <div className="w-[700px] h-[700px] bg-red-600/20 blur-[180px] rounded-full" />
+            </div>
 
-                    <p className="mt-4 max-w-md sm:max-w-xl lg:max-w-2xl text-sm sm:text-base text-center opacity-80">
-                        All Your Questions About Saman’s Magic, Answered
+            <div className="relative max-w-4xl mx-auto px-6 py-20 flex flex-col gap-12">
+
+                {/* HEADER */}
+                <div className="text-center">
+                    <h1 className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
+                            FAQ
+                        </h1>
+                    <p className="mt-4 text-white/60 max-w-xl mx-auto geist ">
+                        Everything you need to know about Saman’s magic
                     </p>
                 </div>
 
-                {/* ========== FAQ CONTENT ==========  */}
-                <div className='flex flex-col gap-[20px]'>
-                    {faqData.map((item, index) => (
-                        <div key={index} className="rounded-lg overflow-hidden">
+                {/* FAQ LIST */}
+                <div className="flex flex-col gap-4">
+                    {faqData.map((item, index) => {
+                        const isOpen = openIndex === index;
 
-                            <button className="w-full text-left bg-gradient-to-r from-black via-[#2b0000] to-[#F13333] text-white px-6 py-4 flex justify-between items-center focus:outline-none hover:opacity-90 transition shadow-[0_0_20px_rgba(122,0,0,0.35)]" onClick={() => toggle(index)}>
-                                <span>{item.question}</span>
-                                <span className="text-xl">
-                                    {openIndex === index ? "−" : "+"}
-                                </span>
-                            </button>
+                        return (
+                            <motion.div
+                                key={index}
+                                layout
+                                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden"
+                            >
+                                {/* QUESTION */}
+                                <button
+                                    onClick={() => toggle(index)}
+                                    className="w-full flex items-center justify-between px-6 py-5 text-left group"
+                                >
+                                    <span className="big-shoulders text-lg md:text-xl font-medium group-hover:text-red-400 transition">
+                                        {item.question}
+                                    </span>
 
-                            <AnimatePresence initial={false}>
-                                {openIndex === index && (
                                     <motion.div
-                                        key="content"
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
+                                        animate={{ rotate: isOpen ? 180 : 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className="bg-white text-gray-900 px-6 py-4 border border-t-0 border-gray-300"
+                                        className="text-white/60 group-hover:text-red-400"
                                     >
-                                        {item.answer}
+                                        <ChevronDown size={22} />
                                     </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ))}
+                                </button>
+
+                                {/* ANSWER */}
+                                <AnimatePresence initial={false}>
+                                    {isOpen && (
+                                        <motion.div
+                                            key="content"
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.25 }}
+                                            className="geist px-6 pb-5 text-white/70 leading-relaxed"
+                                        >
+                                            {item.answer}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Faq
+export default Faq;

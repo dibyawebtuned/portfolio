@@ -3,16 +3,15 @@
 import { useEffect, useRef } from "react";
 
 // ✅ Correct GSAP types
-import type { Context, Tween } from "gsap";
-import type SplitTextType from "gsap/SplitText";
+import gsap from "gsap";
 
 const Banner = () => {
     const textRef = useRef<HTMLHeadingElement | null>(null);
 
     // ✅ Properly typed refs
-    const animationRef = useRef<Tween | null>(null);
-    const splitRef = useRef<SplitTextType | null>(null);
-    const ctxRef = useRef<Context | null>(null);
+    const animationRef = useRef<gsap.core.Tween | null>(null);
+    const splitRef = useRef<any>(null); // We didn't import SplitTextType properly, and that's fine
+    const ctxRef = useRef<gsap.Context | null>(null);
 
     useEffect(() => {
         const init = async () => {
@@ -97,15 +96,7 @@ const Banner = () => {
                 <div className="text-center">
                     <h1
                         ref={textRef}
-                        className="
-                            big-shoulders
-                            text-[#F0EBE6]
-                            font-bold
-                            mb-4 sm:mb-5 md:mb-6
-                            leading-tight
-                            tracking-[0.02em]
-                            text-[48px] lg:text-[64px] xl:text-[87px]
-                        "
+                        className="big-shoulders text-[#F0EBE6] font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]"
                     >
                         Witness the Magic
                     </h1>

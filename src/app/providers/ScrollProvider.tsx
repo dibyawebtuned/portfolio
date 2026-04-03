@@ -26,7 +26,7 @@ export default function ScrollProvider({
                 el: scrollRef.current,
                 smooth: true,
                 lerp: 0.08,
-            });
+            } as any);
 
             // Sync GSAP with Locomotive
             locoScroll.on("scroll", ScrollTrigger.update);

@@ -11,7 +11,7 @@ import Aboutme from './sections/Aboutme'
 import Services from './sections/Services'
 import CardFanSection from './sections/CardFan';
 import FAQAccordion from './sections/Faq'
-import Banner from './sections/Banner'
+// import Banner from './sections/Banner'
 import BentoGallery from './sections/Gallery'
 
 // import HorizontalScrollText from '../../test_two'
@@ -36,7 +36,7 @@ const page = () => {
       <Testimonials />
       <BentoGallery />
       <FAQAccordion />
-      <Banner />
+      {/* <Banner /> */}
 
     </div>
   )

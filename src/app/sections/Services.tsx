@@ -91,7 +91,7 @@ const HoverFollowImages = () => {
                     <li
                         key={index}
                         className="relative border-b border-gray-700 pb-8 sm:pb-12 cursor-pointer"
-                        ref={(el) => el && (containerRefs.current[index] = el)}
+                        ref={(el) => { if (el) containerRefs.current[index] = el; }}
                     >
                         {/* Hover Images */}
                         <div className="swipeimage fixed top-0 left-0 flex gap-3 pointer-events-none z-50 opacity-0 invisible transform -translate-x-1/2 -translate-y-1/2">
