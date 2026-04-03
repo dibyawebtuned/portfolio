@@ -160,7 +160,7 @@ export default function MagicianPortfolio() {
                 </div>
 
                 {/* BOTTOM TEXT */}
-                <div className="flex flex-col items-center justify-end z-20 mt-auto">
+                <div className="flex flex-col items-center justify-end z-20 mt-[70px]">
                     <p className="uppercase text-xs md:text-sm tracking-widest text-[#B9B9B9] mb-3 md:mb-4">
                         Magician & Mentalist from Nepal
                     </p>
