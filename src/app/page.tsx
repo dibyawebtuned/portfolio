@@ -31,7 +31,7 @@ const Page = () => {
         className={`transition-opacity duration-700 ${loadingDone ? "opacity-100" : "opacity-0"
           }`}
       >
-        <Herosection loadingDone={loadingDone} />
+        <Herosection />
         <LogoMarquee />
         <About />
 
