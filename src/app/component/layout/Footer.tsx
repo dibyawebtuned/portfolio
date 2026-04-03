@@ -26,7 +26,7 @@ const Footer = () => {
             <div className='max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-20'>
                 <div className='py-16 md:py-24 flex flex-col gap-12 md:gap-16'>
                     {/* ================= TOP SECTION ================= */}
-                    <div className='flex flex-col lg:flex-row justify-between'>
+                    <div className='flex flex-col lg:flex-row justify-between gap-[30px] sm:gap-[0px]'>
                         {/* MAIL */}
                         <div className='flex-6 flex flex-col gap-2'>
                             <span className='uppercase text-[#D3D3D3] text-sm md:text-base geist geist-regular'>
@@ -39,7 +39,7 @@ const Footer = () => {
                         </div>
 
                         {/* LINKS */}
-                        <div className='flex-4 flex justify-end gap-10 sm:gap-[150px]'>
+                        <div className='flex-4 flex sm:justify-end gap-10 sm:gap-[150px]'>
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
                                 <li><Link href="https://www.instagram.com/samanmagician?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Instagram</Link></li>
                                 <li><Link href="www.youtube.com/@samanmaharjan4780" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out' target="_blank">YouTube</Link></li>
