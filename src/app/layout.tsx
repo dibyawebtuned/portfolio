@@ -45,7 +45,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#000000]`}
       >
         {/* <Preloader /> */}
         <ScrollProvider>
