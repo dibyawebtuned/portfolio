@@ -188,9 +188,10 @@ export default function CardFanSection() {
               transition: "opacity 0.6s ease",
             }}
           >
-            <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-3 sm:mb-5 xl:mb-6 leading-tight tracking-[0.02em] text-[40px] md:text-[48px] xl:text-[64px] 2xl:text-[87px]">
+            {/* <h2 className="big-shoulders text-[#F0EBE6] font-bold mb-3 sm:mb-5 xl:mb-6 leading-tight tracking-[0.02em] text-[40px] md:text-[48px] xl:text-[64px] 2xl:text-[87px]"> */}
+            <h1 className="big-shoulders text-[#F0EBE6] text-center xl:text-start font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
               The Story
-            </h2>
+            </h1>
 
             <p className="geist text-[13px] sm:text-[14px] md:text-[16px] leading-relaxed px-[15px] xl:px-0 text-white/80 xl:text-white">
               Saman has been enthralled by magic since 2010. He recalls what he was like as a child.

@@ -80,13 +80,13 @@ const About = () => {
             <div className="relative max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
                 <div className="flex flex-col xl:flex-row gap-[20px]">
                     <div className="flex-1" data-aos="fade-right">
-                        <h1 className="big-shoulders text-[#F0EBE6] text-center sm:text-start font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
+                        <h1 className="big-shoulders text-[#F0EBE6] text-center xl:text-start font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-[0.02em] text-[48px] lg:text-[64px] xl:text-[87px]">
                             The Journey
                         </h1>
                     </div>
 
                     <div className="flex-1">
-                        <p ref={textRef} className="geist text-center sm:text-start text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed opacity-0"
+                        <p ref={textRef} className="geist text-center xl:text-start text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] text-[#F5F5F5] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed opacity-0"
                         >
                             Saman Maharjan was born and raised in Kathmandu, Nepal,
                             where he began learning magic at the age of eleven.

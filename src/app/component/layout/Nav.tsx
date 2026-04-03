@@ -72,13 +72,13 @@ const Nav = () => {
     return (
         <header className="w-full">
             {/* ================= NAV CONTAINER ================= */}
-            <div ref={navRef} className='relative w-full max-w-[1440px] mx-auto px-[20px] md:px-[80px] z-50'>
+            <div ref={navRef} className='relative max-w-[1440px] mx-auto px-5! sm:px-[80px] z-50'>
                 {/* ================= TOP NAV ================= */}
                 <div ref={topNavRef} className='flex justify-between items-center py-[10px] transition-all duration-300'>
                     {/* Logo */}
-                    <div>
+                    <Link href="/">
                         <Image src={Logo_Image} alt="Logo" className="w-[57px] h-auto" />
-                    </div>
+                    </Link>
 
                     <div className='flex items-center gap-[15px]'>
                         <div className="hidden md:flex items-center gap-6">
@@ -129,9 +129,9 @@ const Nav = () => {
                         <Link href="#about" onClick={(e) => handleScroll(e, 'about')} className="text-sm">About</Link>
                     </div>
 
-                    <div className='flex-shrink-0 w-[40px] h-[40px] mx-4'>
+                    <Link href="/" className='flex-shrink-0 w-[40px] h-[40px] mx-4'>
                         <Image src={Logo_Image} alt="Logo" className="w-full h-full" />
-                    </div>
+                    </Link>
 
                     <div className='flex items-center gap-6'>
                         <Link href="#work" onClick={(e) => handleScroll(e, 'work')} className="text-sm">Work</Link>
