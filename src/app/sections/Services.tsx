@@ -27,8 +27,9 @@ const HoverFollowImages = () => {
             const setY = gsap.quickTo(wrapper, "y", { duration: 0.4, ease: "power3" });
 
             const move = (e: MouseEvent) => {
-                setX(e.clientX);
-                setY(e.clientY);
+                const rect = el.getBoundingClientRect();
+                setX(e.clientX - rect.left);
+                setY(e.clientY - rect.top);
             };
 
             const show = () => {
@@ -74,7 +75,7 @@ const HoverFollowImages = () => {
     ];
 
     return (
-        <div className="bg-[#0f0f0f] min-h-screen" id="services">
+        <div className="bg-[#0f0f0f] min-h-screen relative overflow-hidden" id="services">
             <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-[50px] md:py-[100px]">
                 {/* Header */}
                 <div className="text-center mb-16">
@@ -95,7 +96,7 @@ const HoverFollowImages = () => {
                             ref={(el) => { if (el) containerRefs.current[index] = el; }}
                         >
                             {/* Hover Images */}
-                            <div className="swipeimage fixed top-0 left-0 flex gap-3 pointer-events-none z-50 opacity-0 invisible transform -translate-x-1/2 -translate-y-1/2">
+                            <div className="swipeimage absolute top-0 left-0 flex gap-3 pointer-events-none z-50 opacity-0 invisible transform -translate-x-1/2 -translate-y-1/2">
                                 {item.images.map((imgSrc, i) => (
                                     <Image
                                         key={i}

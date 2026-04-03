@@ -21,6 +21,16 @@ const Nav = () => {
     const topNavRef = useRef<HTMLDivElement>(null);
     const bottomNavRef = useRef<HTMLDivElement>(null);
 
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, targetId: string) => {
+        const element = document.getElementById(targetId);
+        if (element) {
+            e.preventDefault();
+            element.scrollIntoView({ behavior: "smooth" });
+            window.history.pushState(null, '', `#${targetId}`);
+        }
+        setMobileOpen(false);
+    };
+
     // SCROLL LOCK — prevents background page scroll when modal or mobile menu is open
     useEffect(() => {
         if (modalOpen || mobileOpen) {
@@ -112,8 +122,8 @@ const Nav = () => {
                     z-50 w-fit"
                 >
                     <div className='flex items-center gap-6'>
-                        <Link href="#home" className="text-sm">Home</Link>
-                        <Link href="#about" className="text-sm">About</Link>
+                        <Link href="#home" onClick={(e) => handleScroll(e, 'home')} className="text-sm">Home</Link>
+                        <Link href="#about" onClick={(e) => handleScroll(e, 'about')} className="text-sm">About</Link>
                     </div>
 
                     <div className='flex-shrink-0 w-[40px] h-[40px] mx-4'>
@@ -121,7 +131,7 @@ const Nav = () => {
                     </div>
 
                     <div className='flex items-center gap-6'>
-                        <Link href="#work" className="text-sm">Work</Link>
+                        <Link href="#work" onClick={(e) => handleScroll(e, 'work')} className="text-sm">Work</Link>
                         <button onClick={() => setModalOpen(true)} className="text-sm">Contact</button>
                     </div>
                 </div>
@@ -138,11 +148,11 @@ const Nav = () => {
                     </button>
 
                     <ul className='flex flex-col gap-[10px] items-center'>
-                        <li><Link href="#home" className='uppercase text-xl'>Home</Link></li>
-                        <li><Link href="" className='uppercase text-xl'>Services</Link></li>
-                        <li><Link href="#work" className='uppercase text-xl'>Work</Link></li>
-                        {/* <li><Link href="" className='uppercase text-xl'>Gallery</Link></li> */}
-                        <li><Link href="" className='uppercase text-xl'>Contact</Link></li>
+                        <li><Link href="#home" onClick={(e) => handleScroll(e, 'home')} className='uppercase text-xl'>Home</Link></li>
+                        <li><Link href="#services" onClick={(e) => handleScroll(e, 'services')} className='uppercase text-xl'>Services</Link></li>
+                        <li><Link href="#work" onClick={(e) => handleScroll(e, 'work')} className='uppercase text-xl'>Work</Link></li>
+                        {/* <li><Link href="#gallery" onClick={(e) => handleScroll(e, 'gallery')} className='uppercase text-xl'>Gallery</Link></li> */}
+                        <li><Link href="#contact" onClick={(e) => { e.preventDefault(); setModalOpen(true); setMobileOpen(false); }} className='uppercase text-xl'>Contact</Link></li>
                     </ul>
 
                     <span className="uppercase text-xl">

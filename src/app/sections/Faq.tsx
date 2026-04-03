@@ -10,25 +10,29 @@ type FAQItem = {
 
 const faqData: FAQItem[] = [
     {
-        question: "How long has Saman been performing magic?",
+        question: "What types of events do you perform at?",
         answer:
-            "Saman has been passionate about magic since 2010. He began practicing as a child and has performed professionally since 2013.",
+            "I specialize in delivering high-impact magic experiences across a wide range of events, including corporate functions, private parties, weddings, formal dinners, and special occasions. Each performance is carefully tailored to suit the audience, venue, and event objectives. Whether it’s an intimate gathering or a large-scale production, my goal is to create unforgettable moments that engage and captivate every guest.",
     },
     {
-        question: "What types of events does Saman perform at?",
-        answer: "Saman has performed at a variety of events, including birthday parties, weddings, formal dinners, celebrity appearances, trade fairs, and festivals.",
+        question: "What kind of magic performance can we expect?",
+        answer: "My performances combine close-up magic, stage illusions, and mentalism to create a dynamic and immersive experience. Close-up magic happens right in front of your guests, often in their own hands, while stage performances are designed to entertain larger audiences with powerful visual storytelling. Every show includes audience interaction, psychological elements, and unexpected twists to ensure a memorable and unique experience.",
     },
     {
-        question: "What is Saman’s specialty in magic?",
-        answer: "Saman excels in close-up magic, performing tricks right at the tables where guests can see items vanish and reappear in unexpected places.",
+        question: "Can the show be customized for our event or brand?",
+        answer: "Absolutely. Every show is fully customizable to align with your event theme, audience type, and specific goals. For corporate clients, I can incorporate branding, messaging, or product elements into performance. For private events, I tailor the tone and style to match the occasion. This ensures the experience feels personal, relevant, and seamlessly integrated into your event.",
     },
     {
-        question: "Does Saman perform mentalism?",
-        answer: "Yes, Saman performs mentalism tricks as well. His focus is on entertaining and surprising the audience.",
+        question: "How long is the performance, and what setup is required?",
+        answer: "Performance duration typically ranges from 30 minutes to 2 hours, depending on the type of show (close-up, stage, or combination). Setup requirements are minimal for close-up magic, making it ideal for walk-around entertainment. For stage performances, I may require basic sound equipment and a small performance area. All technical requirements will be discussed and planned in advance to ensure a smooth experience.",
     },
     {
-        question: "What makes Saman’s magic unique?",
-        answer: "Saman’s magic combines technical skill with personal interaction, creating unforgettable moments.",
+        question: "What makes your show different from other magicians?",
+        answer: "My performances are designed as immersive experiences, not just a series of tricks. I combine psychology, storytelling, and audience interaction to create moments that feel personal and unforgettable. Each show is fully customized to suit your event, ensuring a refined, high-impact experience that goes beyond traditional magic.",
+    },
+    {
+        question: "How do we book you, and how far in advance should we reserve?",
+        answer: "Booking is simple, just use the contact form on the website or reach out directly with your event details. I recommend booking at least 2–4 weeks in advance to secure availability, especially during peak seasons. Once your inquiry is received, I’ll provide a tailored proposal and guide you through the booking process to ensure everything is handled professionally and efficiently.",
     },
 ];
 
