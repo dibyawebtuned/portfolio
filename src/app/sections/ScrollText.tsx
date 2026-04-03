@@ -67,7 +67,7 @@ export default function HorizontalScrollText() {
         <>
             <section
                 ref={wrapperRef}
-                className="overflow-hidden h-auto flex flex-col items-center"
+                className="overflow-hidden h-auto flex flex-col items-center bg-[#000000]"
             >
                 <div className="container mx-auto">
                     <h3
@@ -87,7 +87,7 @@ export default function HorizontalScrollText() {
 
                     <MagicCards />
 
-                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px]">
+                    <p className="geist text-center text-[13px] sm:text-[14px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed px-[15px] mb-[50px] sm:mb-[100px]">
                         His signature style lies in close-up magic —
                         intimate, interactive, and astonishing.
                         Performing directly at tables, he makes objects
