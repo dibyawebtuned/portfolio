@@ -142,7 +142,7 @@ export default function CardFanSection() {
           xl: = 1280px+ → desktop side-by-side, shorter container
           below xl:     → stacked column (mobile, tablet, iPad Pro), taller container
         */}
-        <div className="relative w-full max-w-[1000px] h-[650px] xl:h-[400px]">
+        <div className="relative w-full max-w-[1000px] h-[700px] xl:h-[400px]">
           <div className="absolute inset-0">
             {CARDS.map((card, i) => (
               <div

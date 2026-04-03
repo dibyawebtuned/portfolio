@@ -204,7 +204,12 @@ const Nav = () => {
                         </div>
 
                         {/* Right Panel — this is the ONLY thing that scrolls */}
-                        <div className="flex-1 min-h-0 min-w-0 p-4 md:p-6 overscroll-contain touch-pan-y">
+                        <div className="
+                        flex-1 min-h-0 min-w-0 
+                        p-4 md:p-6 
+                        overflow-y-auto
+                        max-h-full
+                        overscroll-contain">
                             {/* Heading */}
                             <div className="mb-6 text-white">
                                 <h2 className="big-shoulders text-3xl md:text-4xl font-bold leading-tight">
