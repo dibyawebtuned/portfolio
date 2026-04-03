@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Menu, X } from "lucide-react";
 import Link from 'next/link';
 import Logo_Image from "../../../../public/assets/img/Logo icon SM-01 (1).png";
-import Image_popup from "../../../../public/assets/img/saman_1.png";
+import Image_popup from "../../../../public/assets/img/Gemini_Generated.png";
 import Marquee from "react-fast-marquee";
 
 import gsap from "gsap";

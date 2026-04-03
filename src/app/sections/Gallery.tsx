@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Flip from 'gsap/Flip';
+import { Flip } from 'gsap/all';
 
 import Image1 from "../../../public/assets/img/saman1.jpg";
 import Image2 from "../../../public/assets/img/325602704_750515326670699_7945634941744234587_n.jpg";

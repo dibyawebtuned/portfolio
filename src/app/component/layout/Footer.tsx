@@ -47,7 +47,7 @@ const Footer = () => {
                             </ul>
 
                             <ul className='flex flex-col gap-2 geist text-[18px] text-[#D3D3D3]'>
-                                <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Contact</Link></li>
+                                {/* <li><Link href="" className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Contact</Link></li> */}
                                 <span><span className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Privacy Policy</span></span>
                                 <span><span className='hover:text-[#F13333] transition-colors duration-300 ease-in-out'>Terms of Use</span></span>
                             </ul>
