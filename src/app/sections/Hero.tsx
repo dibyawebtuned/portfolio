@@ -122,7 +122,7 @@ export default function MagicianPortfolio() {
             </div>
 
             {/* ================= MOBILE & TABLET ================= */}
-            <div className="lg:hidden relative px-6 md:px-12 pt-[100px] pb-12 flex flex-col items-center text-center min-h-[100svh] justify-center overflow-hidden">
+            <div className="lg:hidden relative px-6 md:px-12 pt-[20px] pb-12 flex flex-col items-center text-center min-h-[100svh] justify-center overflow-hidden">
                 <style>
                     {`
                     @keyframes float {
